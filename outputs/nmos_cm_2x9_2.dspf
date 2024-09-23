@@ -1,0 +1,180 @@
+*|DSPF	1.5
+*|DESIGN	nmos_cm_2x9_2
+*|DATE	"Wed Jun 19 2025"
+*|VENDOR	"Mentor Graphics Corporation"
+*|PROGRAM	"Calibre xACT"
+*|VERSION	"v2020.4_34.17"
+*|DIVIDER	|
+*|DELIMITER	:
+*|BUSBIT	[]
+* Corner Name: 12lp_11M_3Mx_4Cx_2Kx_2Gx_LB_nominal_detailed_25
+* Nominal Temperature: 25C
+* Circuit Temperature: 25C
+*
+
+* Integrated TICER reduction is not enabled.
+* SHORT DELAY THRESHOLD: 2e-14
+* Fill Mode: NG
+* PEX REDUCE CC ABSOLUTE : disabled
+* PEX REDUCE CC RATIO : disabled
+* Delta transform mode : 344834
+
+.subckt nmos_cm_2x9_2 d0 d1 s
+
+* Net:s ----------------
+
+
+R1 s s:18 0.672
+R2 s s:7 2.128
+R3 s s:13 1.092
+R4 s s:4 3.724
+R5 s:4 s:0 17.64
+R6 s:4 s:1 3.724
+R7 s:4 s:2 0.644
+R8 s:2 s:21 0.672
+R9 s:2 MN0@1:s 14
+R10 s:2 s:9 2.128
+R11 s:2 MN0@1:s 14
+R12 s:2 s:3 4.368
+R13 s:2 MN0@1:s 14
+R14 s:3 s:24 0.672
+R15 s:3 MN1@1:s 14
+R16 s:3 s:11 2.128
+R17 s:3 MN1@1:s 14
+R18 s:3 s:14 1.092
+R19 s:3 MN1@1:s 14
+R20 s:24 s:25 3.528
+R21 s:24 MN1@1:s 14
+R22 s:25 s:26 3.528
+R23 s:25 MN1@1:s 14
+R24 s:26 s:12 2.52
+R25 s:26 MN1@1:s 14
+R26 s:21 s:22 3.528
+R27 s:21 MN0@1:s 14
+R28 s:22 s:23 3.528
+R29 s:22 MN0@1:s 14
+R30 s:23 s:10 2.52
+R31 s:23 MN0@1:s 14
+R32 s:1 s:18 0.672
+R33 s:1 MN0@0:s 14
+R34 s:1 s:7 2.128
+R35 s:1 MN0@0:s 14
+R36 s:1 s:13 1.092
+R37 s:1 MN0@0:s 14
+R38 s:18 s:19 3.528
+R39 s:18 MN0@0:s 14
+R40 s:19 s:20 3.528
+R41 s:19 MN0@0:s 14
+R42 s:20 s:8 2.52
+R43 s:20 MN0@0:s 14
+R44 s:0 s:15 1.176
+R45 s:0 MN0@0:b 14
+R46 s:0 s:16 1.12
+R47 s:0 MN0@0:b 14
+R48 s:0 s:17 2.408
+R49 s:0 MN0@0:b 14
+R50 s:17 s:6 1.187
+R51 s:17 MN0@0:b 14
+R52 s:16 s:5 1.187
+R53 s:16 MN0@0:b 14
+R54 MN0@0:b MN0@1:b 0.01
+R55 MN0@1:b MN1@0:b 0.01
+R56 MN1@0:b MN1@1:b 0.01
+R57 MN0@1:s MN1@0:s 0.01
+R58 MN1@1:s MN2@0:s 0.01
+C1 s:4 0 1.323e-13
+C2 s:4 0 2.793e-14
+C3 s:4 0 4.83e-15
+C4 s:2 0 5.04e-15
+C5 s:2 0 1.5960000000000002e-14
+C6 s:2 0 3.2760000000000004e-14
+C7 s:3 0 5.04e-15
+C8 s:3 0 1.5960000000000002e-14
+C9 s:3 0 8.190000000000001e-15
+C10 s:24 0 2.6460000000000002e-14
+C11 s:25 0 2.6460000000000002e-14
+C12 s:26 0 1.89e-14
+C13 s:21 0 2.6460000000000002e-14
+C14 s:22 0 2.6460000000000002e-14
+C15 s:23 0 1.89e-14
+C16 s:1 0 5.04e-15
+C17 s:1 0 1.5960000000000002e-14
+C18 s:1 0 8.190000000000001e-15
+C19 s:18 0 2.6460000000000002e-14
+C20 s:19 0 2.6460000000000002e-14
+C21 s:20 0 1.89e-14
+C22 s:0 0 8.82e-15
+C23 s:0 0 8.400000000000001e-15
+C24 s:0 0 1.806e-14
+C25 s:17 0 8.904000000000007e-15
+C26 s:16 0 8.903999999999996e-15
+
+
+* Net:d0 ----------------
+
+
+R59 d0 d0:4 2.072
+R60 d0 d0:1 0.728
+R61 d0:4 d0:5 3.528
+R62 d0:4 MN0@0:d 14
+R63 d0:5 d0:6 3.528
+R64 d0:5 MN0@0:d 14
+R65 d0:6 d0:0 4.788
+R66 d0:6 MN0@0:d 14
+R67 d0:0 d0:2 3.276
+R68 d0:0 MN0@0:g 342
+R69 d0:0 MN0@1:g 342
+R70 d0:0 MN1@0:g 342
+R71 d0:0 MN1@1:g 342
+R72 d0:0 d0:7 3.668
+R73 d0:0 MN0@0:g 342
+R74 d0:0 MN0@1:g 342
+R75 d0:0 MN1@0:g 342
+R76 d0:0 MN1@1:g 342
+R77 d0:7 d0:3 3.976
+R78 d0:7 MN0@0:g 342
+R79 d0:7 MN0@1:g 342
+R80 d0:7 MN1@0:g 342
+R81 d0:7 MN1@1:g 342
+R82 MN0@0:d MN0@1:d 0.01
+C27 d0:4 0 2.6460000000000002e-14
+C28 d0:5 0 2.6460000000000002e-14
+C29 d0:6 0 3.591e-14
+C30 d0:0 0 2.457e-14
+C31 d0:0 0 2.751e-14
+C32 d0:7 0 2.982e-14
+
+
+* Net:d1 ----------------
+
+
+R83 d1 d1:5 3.752
+R84 d1 d1:1 0.588
+R85 d1 d1:3 0.728
+R86 d1 d1:4 0.728
+R87 d1:4 d1:0 0.728
+R88 d1:0 d1:5 3.752
+R89 d1:0 d1:1 0.588
+R90 d1:0 d1:3 0.728
+R91 d1:5 d1:6 3.528
+R92 d1:5 MN1@0:d 14
+R93 d1:6 d1:7 3.528
+R94 d1:6 MN1@0:d 14
+R95 d1:7 d1:2 2.52
+R96 d1:7 MN1@0:d 14
+R97 MN1@0:d MN1@1:d 0.01
+C33 d1:4 0 5.46e-15
+C34 d1:0 0 2.814e-14
+C35 d1:0 0 4.41e-15
+C36 d1:0 0 5.46e-15
+C37 d1:5 0 2.6460000000000002e-14
+C38 d1:6 0 2.6460000000000002e-14
+C39 d1:7 0 1.89e-14
+
+
+xMN0@0 MN0@0:d MN0@0:g MN0@0:s MN0@0:b nfet m=1 l=1.4e-08 nfin=9 nf=1 par=1 par_nf=1 asej=5.35e-15 adej=5.35e-15 psej=1.07e-06 pdej=1.07e-06 pdevdops=1 pdevlgeos=1 pdevwgeos=1psw_acv_sign=1 plnest=1 pldist=1 plorient=0 cpp=7.8e-08 fpitch=4.8e-08 xpos=-99 ypos=-99 ptwell=0sca=0 scb=0 scc=0 pre_layout_local=-1 ngcon=1 p_vta=0 p_la=0 u0mult_fet=1 lle_sa=71e-9 lle_sb=71e-9lle_rxrxa=78e-9 lle_rxrxb=78e-9 lle_rxrxn=192e-9 lle_rxrxs=192e-9 lle_pcrxn=55e-9 lle_pcrxs=55e-9lle_nwa=2e-6 lle_nwb=2e-6 lle_nwn=192e-9 lle_nws=192e-9 lle_ctne=0 lle_ctnw=0 lle_ctse=0 lle_ctsw=0lle_sctne=0 lle_sctnw=0 lle_sctse=0 lle_sctsw=0 lrsd=27e-9 dtemp=0 l_shape=0 l_shape_s=0 nsig_dop1=0nsig_dop2=0 nsig_dibl=0 nsig_pc=0 nsig_rx=0 fc_index=0 fc_sigma=3 analog=-1 nf_pex=1
+xMN0@1 MN0@1:d MN0@1:g MN0@1:s MN0@1:b nfet m=1 l=1.4e-08 nfin=9 nf=1 par=1 par_nf=1 asej=5.35e-15 adej=5.35e-15 psej=1.07e-06 pdej=1.07e-06 pdevdops=1 pdevlgeos=1 pdevwgeos=1psw_acv_sign=1 plnest=1 pldist=1 plorient=0 cpp=7.8e-08 fpitch=4.8e-08 xpos=-99 ypos=-99 ptwell=0sca=0 scb=0 scc=0 pre_layout_local=-1 ngcon=1 p_vta=0 p_la=0 u0mult_fet=1 lle_sa=71e-9 lle_sb=71e-9lle_rxrxa=78e-9 lle_rxrxb=78e-9 lle_rxrxn=192e-9 lle_rxrxs=192e-9 lle_pcrxn=55e-9 lle_pcrxs=55e-9lle_nwa=2e-6 lle_nwb=2e-6 lle_nwn=192e-9 lle_nws=192e-9 lle_ctne=0 lle_ctnw=0 lle_ctse=0 lle_ctsw=0lle_sctne=0 lle_sctnw=0 lle_sctse=0 lle_sctsw=0 lrsd=27e-9 dtemp=0 l_shape=0 l_shape_s=0 nsig_dop1=0nsig_dop2=0 nsig_dibl=0 nsig_pc=0 nsig_rx=0 fc_index=0 fc_sigma=3 analog=-1 nf_pex=1
+xMN1@0 MN1@0:d MN1@0:g MN1@0:s MN1@0:b nfet m=1 l=1.4e-08 nfin=9 nf=1 par=1 par_nf=1 asej=5.35e-15 adej=5.35e-15 psej=1.07e-06 pdej=1.07e-06 pdevdops=1 pdevlgeos=1 pdevwgeos=1psw_acv_sign=1 plnest=1 pldist=1 plorient=0 cpp=7.8e-08 fpitch=4.8e-08 xpos=-99 ypos=-99 ptwell=0sca=0 scb=0 scc=0 pre_layout_local=-1 ngcon=1 p_vta=0 p_la=0 u0mult_fet=1 lle_sa=71e-9 lle_sb=71e-9lle_rxrxa=78e-9 lle_rxrxb=78e-9 lle_rxrxn=192e-9 lle_rxrxs=192e-9 lle_pcrxn=55e-9 lle_pcrxs=55e-9lle_nwa=2e-6 lle_nwb=2e-6 lle_nwn=192e-9 lle_nws=192e-9 lle_ctne=0 lle_ctnw=0 lle_ctse=0 lle_ctsw=0lle_sctne=0 lle_sctnw=0 lle_sctse=0 lle_sctsw=0 lrsd=27e-9 dtemp=0 l_shape=0 l_shape_s=0 nsig_dop1=0nsig_dop2=0 nsig_dibl=0 nsig_pc=0 nsig_rx=0 fc_index=0 fc_sigma=3 analog=-1 nf_pex=1
+xMN1@1 MN1@1:d MN1@1:g MN1@1:s MN1@1:b nfet m=1 l=1.4e-08 nfin=9 nf=1 par=1 par_nf=1 asej=5.35e-15 adej=5.35e-15 psej=1.07e-06 pdej=1.07e-06 pdevdops=1 pdevlgeos=1 pdevwgeos=1psw_acv_sign=1 plnest=1 pldist=1 plorient=0 cpp=7.8e-08 fpitch=4.8e-08 xpos=-99 ypos=-99 ptwell=0sca=0 scb=0 scc=0 pre_layout_local=-1 ngcon=1 p_vta=0 p_la=0 u0mult_fet=1 lle_sa=71e-9 lle_sb=71e-9lle_rxrxa=78e-9 lle_rxrxb=78e-9 lle_rxrxn=192e-9 lle_rxrxs=192e-9 lle_pcrxn=55e-9 lle_pcrxs=55e-9lle_nwa=2e-6 lle_nwb=2e-6 lle_nwn=192e-9 lle_nws=192e-9 lle_ctne=0 lle_ctnw=0 lle_ctse=0 lle_ctsw=0lle_sctne=0 lle_sctnw=0 lle_sctse=0 lle_sctsw=0 lrsd=27e-9 dtemp=0 l_shape=0 l_shape_s=0 nsig_dop1=0nsig_dop2=0 nsig_dibl=0 nsig_pc=0 nsig_rx=0 fc_index=0 fc_sigma=3 analog=-1 nf_pex=1
+
+.end

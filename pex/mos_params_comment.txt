@@ -1,0 +1,18 @@
+        # nf     ------ number of fingers
+        # nfin   ------ number of fins
+        # fpitch ------ fin pitch
+        # l      ------ length
+        # pdej   ------ perimeter of the drain junction
+        # psej   ------ perimeter of the source junction
+        # adej   ------ area of the drain junction
+        # asej   ------ area of the source junction
+        # nf_pex ------ number of fingers for parasitic extraction
+        # par_nf ------ parasitic number of fingers
+        # m      ------ multiplier
+
+        # sca, scb and scc ------ well proximity effect parameters
+
+        # lle_sa  -- Distance between OD edge to poly of one sid
+        # lle_sb  -- Distance between OD edge to poly of the other side
+
+        # lle_ctsw  lle_ctnw  lle_nwb lle_pcrxn lle_rxrxn

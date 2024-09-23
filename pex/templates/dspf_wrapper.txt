@@ -1,0 +1,26 @@
+*|DSPF	1.5
+*|DESIGN	{design_name}
+*|DATE	"Wed Jun 19 2025"
+*|VENDOR	"Mentor Graphics Corporation"
+*|PROGRAM	"Calibre xACT"
+*|VERSION	"v2020.4_34.17"
+*|DIVIDER	|
+*|DELIMITER	:
+*|BUSBIT	[]
+* Corner Name: 12lp_11M_3Mx_4Cx_2Kx_2Gx_LB_nominal_detailed_25
+* Nominal Temperature: 25C
+* Circuit Temperature: 25C
+*
+
+* Integrated TICER reduction is not enabled.
+* SHORT DELAY THRESHOLD: 2e-14
+* Fill Mode: NG
+* PEX REDUCE CC ABSOLUTE : disabled
+* PEX REDUCE CC RATIO : disabled
+* Delta transform mode : 344834
+
+.subckt {design_name} {ports}
+
+{body}
+
+.end

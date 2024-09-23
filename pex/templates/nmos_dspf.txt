@@ -1,0 +1,10 @@
+XX{name} {name}:d {name}:g {name}:s {name}:b nfet l={l} fpitch={fpitch} nfin={nfin} nf={nf}
++ plorient=0 p_la=0 ngcon=1 cpp=7.8e-08 analog=-1 nf_pex={nf_pex} par_nf={par_nf} m=1 par=1
++ dtemp=0 l_shape=0 l_shape_s=0 asej={asej} adej={adej} psej={psej}
++ pdej={pdej} sca={sca} scb={scb} scc={scc} lle_sa={lle_sa}
++ lle_sb={lle_sb} lle_nwa={lle_nwa} lle_nwb={lle_nwb} lle_nws={lle_nws} lle_nwn={lle_nwn}
++ lle_rxrxa={lle_rxrxa} lle_rxrxb={lle_rxrxb} lle_rxrxs={lle_rxrxs} lle_rxrxn={lle_rxrxn}
++ lle_pcrxs={lle_pcrxs} lle_pcrxn={lle_pcrxn} lle_ctne={lle_ctne} lle_ctse={lle_ctse}
++ lle_ctnw={lle_ctnw} lle_ctsw={lle_ctsw} lle_sctne=0 lle_sctnw=0 lle_sctse=0
++ lle_sctsw=0 ptwell=0 pre_layout_local=0 pre_layout_local_rd=0
++ pre_layout_local_rs=0 pre_layout_local_rg=0 $X={X} $Y={Y}

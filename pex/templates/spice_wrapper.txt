@@ -1,0 +1,5 @@
+.SUBCKT {design_name} {ports}
+
+{body}
+
+.ends {design_name}
