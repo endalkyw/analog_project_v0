@@ -90,15 +90,19 @@ def add_fabric(cell, poly_no, fin_no):
 
 
 def add_power_grid(cell, loc_i, loc_j, m_h, m_v, h_pitch, v_pitch):
-    ver_metals = int((loc_j.x - loc_i.x)/h_pitch)
-    hor_metals = int((loc_j.y - loc_i.y)/v_pitch)
+    ver_metals = int((loc_j.x - loc_i.x)/h_pitch)+1
+    hor_metals = int((loc_j.y - loc_i.y)/v_pitch)+1
+    grids = {"V": [], "H": []}
 
     for i in range(ver_metals):
-        add_metal(cell, P(loc_i.x + i*h_pitch, loc_i.y), hor_metals*v_pitch, "V", m_h)
+        r = add_metal(cell, P(loc_i.x + i*h_pitch, loc_i.y), loc_j.y-loc_i.y, "V", m_h, return_rect=True)
+        grids["V"].append(r)
 
     for i in range(hor_metals):
-        add_metal(cell, P(loc_i.x, loc_i.y + i*h_pitch), ver_metals*v_pitch, "H", m_v)
+        r = add_metal(cell, P(loc_i.x, loc_i.y + i*h_pitch), loc_j.x-loc_i.x, "H", m_v, return_rect=True)
+        grids["H"].append(r)
 
+    return grids
 
 def add_transformed_polygons(source_cell, target_cell, offset):
     for polygon in source_cell.polygons:

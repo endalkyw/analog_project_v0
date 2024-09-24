@@ -82,6 +82,12 @@ M4:
   thickness: 40
   layer_no: "21:0"
 
+M5:
+  pitch: 32
+  width: 32
+  thickness: 40
+  layer_no: "23:0"
+
 V0:
   length: 32
   layer_no: "35:0"

@@ -138,6 +138,7 @@ class current_mirror:
                         add_via_array(cell_i, (xi+C.m_m_ext, yi), self.m1.stack * 4 * lp['M2']['pitch'], nd1, 'H', "V1")
 
             elif pattern == 4:  # Common Centroid ------------- no diffusion break --------------------------------------
+                assert self.m0.fingers % 4 == 0, "fingers must be divisible by 4"
                 lbl = np.array(["d0", "d1"])
                 for k, pnt in enumerate(points):
                     nd0 = self.m0.fingers//2 + self.m0.fingers % 2
@@ -197,7 +198,7 @@ class current_mirror:
                         cj = contact_rects[j]
 
                         if ((ci.rect[1][0] - ci.rect[0][0]) > (ci.rect[1][1] - ci.rect[0][1])) and ((cj.rect[1][0] - cj.rect[0][0]) > (cj.rect[1][1] - cj.rect[0][1])):
-                            if set([ci.rect[0][1], ci.rect[1][1]]) == set([cj.rect[0][1], cj.rect[1][1]]) and ci.rect[1][0]< cj.rect[0][0]:
+                            if set([ci.rect[0][1], ci.rect[1][1]]) == set([cj.rect[0][1], cj.rect[1][1]]) and ci.rect[1][0]< cj.rect[0][0] and ci.id == cj.id:
                                 bridge_rect = [[ci.rect[1][0]-10, ci.rect[0][1]], [cj.rect[0][0]+10, cj.rect[1][1]]]
                                 add_metal(cell_i, P(bridge_rect[0][0],bridge_rect[0][1]), bridge_rect[1][0]-bridge_rect[0][0], "H", "M2")
                                 contact_rects.append(CR(ci.id, bridge_rect))
@@ -264,7 +265,7 @@ class current_mirror:
                         ci = contact_rects[i]
                         cj = contact_rects[j]
                         if ((ci.rect[1][0] - ci.rect[0][0]) > (ci.rect[1][1] - ci.rect[0][1])) and ((cj.rect[1][0] - cj.rect[0][0]) > (cj.rect[1][1] - cj.rect[0][1])):
-                            if set([ci.rect[0][1], ci.rect[1][1]]) == set([cj.rect[0][1], cj.rect[1][1]]) and ci.rect[1][0]< cj.rect[0][0]:
+                            if set([ci.rect[0][1], ci.rect[1][1]]) == set([cj.rect[0][1], cj.rect[1][1]]) and ci.rect[1][0] < cj.rect[0][0]:
                                 bridge_rect = [[ci.rect[1][0]-10, ci.rect[0][1]], [cj.rect[0][0]+10, cj.rect[1][1]]]
                                 add_metal(cell_i, P(bridge_rect[0][0],bridge_rect[0][1]), bridge_rect[1][0]-bridge_rect[0][0], "H", "M2")
                                 contact_rects[i].rect[1][0] = contact_rects[j].rect[1][0]
@@ -276,6 +277,8 @@ class current_mirror:
 
 
             elif pattern == 5:  # Common-Centroid -----------------------------------------
+                assert self.m0.fingers%2 == 0, "finger must be divisible by 2"
+
                 m = Mos({'id': 'A', 'fins': self.m0.fins, 'fingers': 1, 'stack': self.m0.stack,
                          'multiplier': self.m0.multiplier, 'mos_type': self.m0.mos_type})
 

@@ -75,9 +75,18 @@ def create_base_layout(cell, total_fingers, total_fins, mos_type, stack = 1, mul
 
         # Adding CA (14:0) and M1 (15:0) [Drain and Source diffusions]
         add_v_metal_array(cell_i, P(C.rx_m1-1,0), y_f, lp["CA"]["pitch"], stack*total_fingers+1, "CA")
-        add_v_metal_array(cell_i, P(C.rx_m1,0), y_f,  stack*lp["M1"]["pitch"], total_fingers+1, "M1")
-        fill_with_vias_array(cell_i, "V",(C.rx_m1,0),(C.rx_m1+lp["M1"]["width"],y_f),
-                             total_fingers+1, stack*lp["CA"]["pitch"], "V0")
+
+        if total_fins < 5:
+            contact_points["p0"] = [[x_i, y_i-144]]
+            add_v_metal_array(cell_i, P(C.rx_m1, 0 - 144), y_f+144,  stack*lp["M1"]["pitch"], total_fingers+1, "M1")
+            fill_with_vias_array(cell_i, "V", (C.rx_m1, 0 - 144), (C.rx_m1 + lp["M1"]["width"], y_f),
+                                 total_fingers + 1, stack * lp["CA"]["pitch"], "V0")
+        else:
+            contact_points["p0"] = [[x_i, y_i]]
+            add_v_metal_array(cell_i, P(C.rx_m1, 0), y_f,  stack*lp["M1"]["pitch"], total_fingers+1, "M1")
+            fill_with_vias_array(cell_i, "V", (C.rx_m1, 0), (C.rx_m1 + lp["M1"]["width"], y_f),
+                                 total_fingers + 1, stack * lp["CA"]["pitch"], "V0")
+
 
         contact_points["s"].append([C.rx_m1, y_i])
         contact_points["d"].append([C.rx_m1+(stack)*lp["M1"]["pitch"], y_i])

@@ -38,18 +38,18 @@ from layout_gen.primitives.current_mirror import current_mirror
 
 # ---------------------------------------------------------------------------------------------
 # For single current mirror test
-m0 = Mos({'id': 'A', 'fins': 5, 'fingers': 8, 'stack': 1, 'multiplier': 5, 'mos_type': "N"})
-m1 = Mos({'id': 'A', 'fins': 5, 'fingers': 8, 'stack': 1, 'multiplier': 5, 'mos_type': "N"})
+m0 = Mos({'id': 'A', 'fins': 6, 'fingers': 4, 'stack': 1, 'multiplier': 3, 'mos_type': "N"})
+m1 = Mos({'id': 'A', 'fins': 6, 'fingers': 4, 'stack': 1, 'multiplier': 3, 'mos_type': "N"})
 c1 = current_mirror(m0, m1, "test_cm")
-c1.create_layout(2, labels=("d0", "d1", "s"), con=[1, 1, 1])
+c1.create_layout(5, labels=("d0", "d1", "s"), con=[1, 1, 1])
 write_gds(c1.cell, "nmos_cm_x")
 
 
 # matplotlib.use('TkAgg')
-# plt.rcParams['figure.facecolor'] = 'black'  # Set figure background
-# plt.rcParams['axes.facecolor'] = 'black'    # Set axes background
-# show_layout(c1.cell, fig_size=(6, 4))
-# plt.savefig("outputs/trial_cm2.png")
+plt.rcParams['figure.facecolor'] = 'black'  # Set figure background
+plt.rcParams['axes.facecolor'] = 'black'    # Set axes background
+show_layout(c1.cell, fig_size=(6, 4))
+plt.savefig("outputs/trial_cm2.png")
 # ---------------------------------------------------------------------------------------------
 
 
