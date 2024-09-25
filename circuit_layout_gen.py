@@ -22,14 +22,14 @@ def find_center(rects):
 m0 = Mos({'id': 'A', 'fins': 16, 'fingers': 6, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
 m1 = Mos({'id': 'A', 'fins': 16, 'fingers': 6, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
 n_cc = current_mirror(m0, m1, "test_cm")
-n_cc.create_layout(4, labels=("d0", "d1", "s"), con=[1, 1, 1], fabric_on=False)
+n_cc.create_layout(2, labels=("d0", "d1", "s"), con=[1, 1, 1], fabric_on=False)
 n_cc_b = n_cc.cell.bounding_box()
 
 # pmos current mirror
-m0 = Mos({'id': 'A', 'fins': 8, 'fingers': 10, 'stack': 1, 'multiplier': 1, 'mos_type': "P"})
-m1 = Mos({'id': 'A', 'fins': 8, 'fingers': 10, 'stack': 1, 'multiplier': 1, 'mos_type': "P"})
+m0 = Mos({'id': 'A', 'fins': 5, 'fingers': 5, 'stack': 1, 'multiplier': 3, 'mos_type': "P"})
+m1 = Mos({'id': 'A', 'fins': 5, 'fingers': 5, 'stack': 1, 'multiplier': 3, 'mos_type': "P"})
 p_cc = current_mirror(m0, m1, "test_cm")
-p_cc.create_layout(0, labels=("d0", "d1", "s"), con=[1, 1, 1], fabric_on=False)
+p_cc.create_layout(1, labels=("d0", "d1", "s"), con=[1, 1, 1], fabric_on=False)
 p_cc_b = n_cc.cell.bounding_box()
 
 # nmos differential pair
@@ -62,13 +62,13 @@ add_transformed_polygons(p_cc.cell, cell, (x, y))
 
 # -------- poly and fins fabric inclusion ------------------------------------------
 p = cell.bounding_box()
-poly_n = math.ceil((p[1][0] - p[0][0]) / lp["poly"]["pitch"]) - 1   + 15
-fin_n = math.ceil((p[1][1] - p[0][1]) // lp["fins"]["pitch"]) + 15
+poly_n = math.ceil((p[1][0] - p[0][0]) / lp["poly"]["pitch"]) - 1  + 12
+fin_n = math.ceil((p[1][1] - p[0][1]) // lp["fins"]["pitch"]) + 12
 x_ = 0
 y_ = 0
 
 cell_x = create_empty_cell("five_t_ota", 1e-9, 1e-12)
-create_fabric(cell_x, poly_n, fin_n)
+# create_fabric(cell_x, poly_n, fin_n)
 x_ = (3 + 1) * (lp['poly']['dummies'] - 1) * lp['poly']['pitch'] + 23 + lp['poly']['width'] / 2
 y_ = (3 + 1) * lp['fins']['dummies'] * lp["fins"]["pitch"] - (lp['fins']['pitch'] - lp['fins']['width']) / 2
 add_transformed_polygons(cell, cell_x, (x_, y_))
@@ -90,8 +90,8 @@ grd = add_power_grid(cell_x, P(c[0][0], c[0][1]), P(c[1][0], c[1][1]), "M4", "M5
 
 
 
-plt.rcParams['figure.facecolor'] = 'black'  # Set figure background
-plt.rcParams['axes.facecolor'] = 'black'    # Set axes background
+# plt.rcParams['figure.facecolor'] = 'black'  # Set figure background
+# plt.rcParams['axes.facecolor'] = 'black'    # Set axes background
 show_layout(cell_x, fig_size=(6, 4))
 
 
