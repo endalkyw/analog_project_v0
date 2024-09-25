@@ -1,0 +1,22 @@
+This is a source file		$must have a title line
+
+.LIB "/project/ssstudents/TAPO_downloads/GF12_V1.0_4.1/12LP/V1.0_4.1/Models/HSPICE/models/12LP_Hspice.lib" TT
+.option post = 2
+.option ingold = 1
+.PARAM wireopt=3 pre_layout_sw=0
+
+.include "{target_file}"
+
+xnm {ports} {name}
+Vb b 0 DC 0
+Vs s 0 DC 0
+
+Vg g 0 DC 0.5
+Vd d 0 DC 0.5
+
+
+.DC Vg 0 0.8 0.01
+
+.print v(g) v(d) i(Vd)
+
+.end
