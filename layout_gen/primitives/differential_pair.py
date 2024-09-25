@@ -73,13 +73,14 @@ class differential_pair:
                 for i in range(con[2]):
                     xi, yi = loc["x_span"][0], pnt["p0"][0][1] + v_sp + drn * lp["M2"]['pitch'] + i * lp["M2"][
                         'pitch'] + C.m_m_ext
-                    rect_s = [[xi, yi], [xi + loc["x_span"][1] - loc["x_span"][0], yi + lp["M2"]['width']]]
-                    add_metal(cell_i, P(xi, yi), loc["x_span"][1] - loc["x_span"][0], "H", "M2")
+
+                    rect_s = add_metal(cell_i, P(xi, yi), loc["x_span"][1] - loc["x_span"][0], "H", "M2", return_rect=True)
                     add_via_array(cell_i, (pnt["p0"][0][0] + C.rx_m1,
                                            pnt["p0"][0][1] + v_sp + drn * lp["M2"]['pitch'] + i * lp["M2"][
                                                'pitch'] + C.m_m_ext), self.m0.stack * 2 * lp['M1']['pitch'],
                                   self.total_fingers // 2 + 1, 'H', "V1")
                     contact_rects.append(CR("s", rect_s))
+
 
                 # bulk metal and via array
                 if pnt["b"]:
@@ -249,7 +250,7 @@ class differential_pair:
                     for j in range(i + 1, len(contact_rects)):
                         ci = contact_rects[i]
                         cj = contact_rects[j]
-                        if ci.id != "g0" and ci.id != "g1":
+                        if ci.id == "s" or ci.id == "b":
                             if ((ci.rect[1][0] - ci.rect[0][0]) > (ci.rect[1][1] - ci.rect[0][1])) and (
                                     (cj.rect[1][0] - cj.rect[0][0]) > (cj.rect[1][1] - cj.rect[0][1])):
                                 if set([ci.rect[0][1], ci.rect[1][1]]) == set([cj.rect[0][1], cj.rect[1][1]]) and \
@@ -493,6 +494,7 @@ class differential_pair:
 
         if pattern == 4 or pattern == 2:
             x_sp = divide_line(s_d0[0][0],s_d0[1][0], con[0] + con[1] + con[2] + 2, C.m_m_ext, "M3")
+            print(x_sp)
 
             for i in range(con[0]): # d0
                 r = add_metal(cell_i, P(x_sp[i], s_d0[0][1] - C.m_m_ext), s_d0[1][1] - s_d0[0][1] + 2 * C.m_m_ext, "V",

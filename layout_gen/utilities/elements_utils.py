@@ -323,3 +323,13 @@ class Mos:
         self.multiplier = p["multiplier"]
         self.id = p["id"]
         self.mos_type = p["mos_type"]
+
+
+
+
+# fins - fingers - multipliers - wires - pattern
+# [0, 5]       [0, 20]           [1]        []        []
+# [5, 10]      [0, 10]           []        []        []
+# [10, 20]     [0, 30]           []        []        []
+# []           [0, 20]           []        []        []
+# []           [0, 20]           []        []        []

@@ -10,4 +10,5 @@ from multiple_layout_generator import *
 # pex(file_path)
 
 
-generate_cm_layouts(75, 75, 1, "N")
+# generate_cm_layouts(75, 75, 1, "N")
+generate_dp_layouts(190, 1, "N")
