@@ -1,0 +1,27 @@
+######## AUG 12
+
+# m = Mos({'id': 'A', 'fins': 10, 'fingers': 20, 'multiplier': 1, 'mos_type': "N"})
+# cell = create_mos(m, fabric_on = True, s_con=True, d_con=True, b_con=True, g_con=True, labels = {"d":'d',"g":'g', "b":'b', "s":'s'})
+# # from tools.commmon_libs import c
+# ax = show_cells(cell, show_layout = False)
+# write_cells(cell, "nmos.gds")
+
+# fig = ax.figure
+# fig.savefig("fig.png")
+
+
+# # # =============================================================================================
+# ports = pex("nmos", print_log = True)
+# # # =============================================================================================
+
+# inputs = {"target_file":"nmos.dspf","ports":ports, "name":"nmos"}
+# with open("spice/testbenches/nmos_tb_template.txt",'r') as file:
+#     template = file.read()
+
+# spice_file = template.format(**inputs)
+# with open("log_files/nmos_tb.sp",'w') as file:
+#     file.write(spice_file)
+
+# exit_status = os.system('hspice -i log_files/nmos_tb.sp -o log_files/temp')
+# print(exit_status)
+
