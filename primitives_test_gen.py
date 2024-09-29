@@ -1,6 +1,7 @@
 from layout_gen.utilities.elements_utils import *
 from layout_gen.primitives.current_mirror import current_mirror
 from layout_gen.primitives.differential_pair import differential_pair
+from layout_gen.core import create_base_layout
 # ---------------------------------------------------------------------------------------------
 # Base Layout Test---------------------------------------------
 # cell = create_empty_cell("base_cell",unit=1e-9, precision=1e-12)
@@ -17,7 +18,7 @@ from layout_gen.primitives.differential_pair import differential_pair
 # }
 # points = create_base_layout(**inputs)
 # write_gds(cell, "base_cell")
-#
+
 # for i in points:
 #     print(i)
 ## ---------------------------------------------------------------------------------------------
@@ -38,11 +39,11 @@ from layout_gen.primitives.differential_pair import differential_pair
 
 # ---------------------------------------------------------------------------------------------
 # For single current mirror test
-m0 = Mos({'id': 'A', 'fins': 15, 'fingers': 5, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
-m1 = Mos({'id': 'A', 'fins': 15, 'fingers': 5, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
-c1 = current_mirror(m0, m1, "test_cm")
-c1.create_layout(3, labels=("d0", "d1", "s"), con=[1, 1, 1])
-write_gds(c1.cell, "nmos_cm_x")
+# m0 = Mos({'id': 'A', 'fins': 15, 'fingers': 5, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
+# m1 = Mos({'id': 'A', 'fins': 15, 'fingers': 5, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
+# c1 = current_mirror(m0, m1, "test_cm")
+# c1.create_layout(3, labels=("d0", "d1", "s"), con=[1, 1, 1])
+# write_gds(c1.cell, "nmos_cm_x")
 #
 #
 # # matplotlib.use('TkAgg')
@@ -54,17 +55,17 @@ write_gds(c1.cell, "nmos_cm_x")
 
 
 # For single differential pair test
-# m0 = Mos({'id': 'A', 'fins': 3, 'fingers': 3, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
-# m1 = Mos({'id': 'A', 'fins': 3, 'fingers': 3, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
-# c1 = differential_pair(m0, m1, "test_dp")
-# c1.create_layout(3, labels=("b", "g0", "g1", "d0", "d1", "s"), con=[1, 1, 1]) # connectors d0, d1, s
-# write_gds(c1.cell, "nmos_cm_trial")
+m0 = Mos({'id': 'A', 'fins': 12, 'fingers': 5, 'stack': 1, 'multiplier': 5, 'mos_type': "N"})
+m1 = Mos({'id': 'A', 'fins': 12, 'fingers': 5, 'stack': 1, 'multiplier': 5, 'mos_type': "N"})
+c1 = differential_pair(m0, m1, "test_dp")
+c1.create_layout(3, labels=("b", "g0", "g1", "d0", "d1", "s"), con=[1, 1, 1])  # connectors d0, d1, s
+write_gds(c1.cell, "nmos_trial_dp")
 
 
 
 
-# # matplotlib.use('TkAgg')
-# plt.rcParams['figure.facecolor'] = 'black'  # Set figure background
-# plt.rcParams['axes.facecolor'] = 'black'    # Set axes background
-# show_layout(c1.cell, fig_size=(6, 4))
-# plt.savefig("outputs/trial_cm2.png")
+# matplotlib.use('TkAgg')
+plt.rcParams['figure.facecolor'] = 'black'  # Set figure background
+plt.rcParams['axes.facecolor'] = 'black'    # Set axes background
+show_layout(c1.cell, fig_size=(6, 4))
+# plt.savefig("outputs/trial.png")

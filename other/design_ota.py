@@ -1,16 +1,8 @@
-from LUT.read import lut
-import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import CubicSpline
-from spice.mos_par import *
 from LUT.fetch_ import *
-import os
-from tools.output_file import clear_output_files
 from tools.log_file import *
-from spice.parse_funcs import extract_between_x_and_y
-from datetime import datetime
-from five_transistor_spice import get_ota_specs
-from scipy.optimize import minimize
+
 
 def radial_spyder_web(ax, all_data, metrics, al = 1, th = 2.5):
   output_path = os.path.abspath("outputs")

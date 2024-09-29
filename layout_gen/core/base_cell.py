@@ -167,7 +167,7 @@ def create_base_layout(cell, total_fingers, total_fins, mos_type, stack = 1, mul
 
         elif gate_type == "dp_1x0":
             pitch *= stack
-            r0 = [(x_i_-17.5, y_f + C.gate_h0), (x_i_ + pitch - 31, y_f +  C.gate_h0 + 30)]
+            r0 = [(x_i_-16, y_f + C.gate_h0), (x_i_ + pitch - 30, y_f +  C.gate_h0 + 30)]
             add_region(cell_i, r0[0], r0[1], "CB")
             fill_area_vias(cell_i, r0, "V0")
             fill_v_metals(cell_i, r0, "M1")
@@ -175,7 +175,7 @@ def create_base_layout(cell, total_fingers, total_fins, mos_type, stack = 1, mul
 
         elif gate_type == "dp_1x1":
             pitch *= stack
-            r0 = [(x_i_-17.5, y_f + C.gate_h1), (x_i_ + pitch - 31, y_f +  C.gate_h1 + 30)]
+            r0 = [(x_i_-16, y_f + C.gate_h1), (x_i_ + pitch - 30, y_f +  C.gate_h1 + 30)]
             add_region(cell_i, r0[0], r0[1], "CB")
             fill_area_vias(cell_i, r0, "V0")
             fill_v_metals(cell_i, r0, "M1")

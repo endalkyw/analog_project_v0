@@ -49,7 +49,7 @@ class differential_pair:
                                         stack=self.m0.stack, multiplier=self.m0.multiplier, orientation="V",
                                         body_contact=False, gate_type=g_t)
             contact_rects = []
-            print(points)
+            # print(points)
 
 
             for pnt in points:
@@ -135,7 +135,7 @@ class differential_pair:
                     g_n = g_lst[ix % 2]
                     d_n = d_lst[ix % 2]
 
-                    print(g_n[0], d_n[1])
+                    # print(g_n[0], d_n[1])
                     for i, g in enumerate(sorted(pnt["g"])):
                         rect_g = [[min(pnt["g"][0][0], pnt["g"][1][0]) + C.m_m_ext, g[1] - 1],
                                   [min(pnt["g"][0][0],
@@ -222,8 +222,8 @@ class differential_pair:
             contact_rects = []
 
             if pattern == 1:  # Clustered -------------------------------------------------
-                cell_0, c_p0 = create_mos(self.m0, con=[con[0], 1, con[2], 1], orientation="V", fabric_on=False)
-                cell_1, c_p1 = create_mos(self.m1, con=[con[1], 1, con[2], 1], orientation="V", fabric_on=False)
+                cell_0, c_p0 = create_mos(self.m0, con=[con[0], 1, 1, 1], orientation="V", fabric_on=False)
+                cell_1, c_p1 = create_mos(self.m1, con=[con[1], 1, 1, 1], orientation="V", fabric_on=False)
 
                 x_offset = (2 * lp['poly']['dummies'] + self.stack * self.m0.fingers - 1) * lp['poly']['pitch']
                 cell_i = create_empty_cell("cm", 1e-9, 1e-12)
@@ -263,11 +263,11 @@ class differential_pair:
             elif pattern == 3:  # Interigitated ------------------------------------------
                 m = Mos({'id': 'A', 'fins': self.m0.fins, 'fingers': 1, 'stack': self.m0.stack,
                          'multiplier': self.m0.multiplier, 'mos_type': self.m0.mos_type})
-
+                gate_type = ["dp_1x0", "dp_1x1"]
                 for i in range(self.total_fingers):
                     cell_x = create_empty_cell("temp", unit=1e-9, precision=1e-12)
                     points = create_base_layout(cell_x, m.fingers, m.fins, m.mos_type, stack=m.stack,
-                                                multiplier=m.multiplier, orientation="V")
+                                                multiplier=m.multiplier, orientation="V", gate_type = gate_type[i%2])
 
                     x_offset = (2 * lp['poly']['dummies'] + self.stack - 1) * lp['poly']['pitch']
                     add_transformed_polygons(cell_x, cell_i, (i * x_offset, 0))
@@ -303,15 +303,14 @@ class differential_pair:
                             add_via(cell_i, [pnt["s"][0][0] + i * x_offset, l[con[1] + con[0] + j]], "V1")
 
                         # gate
-                        xi = pnt["s"][0][0] - C.m_m_ext + i * x_offset
-                        yi = pnt["g"][0][1]
-                        rect_g = [[xi, yi], [xi + ln + 2 * C.m_m_ext, yi + lp["M2"]["width"]]]
-                        add_metal(cell_i, P(xi, yi), ln + 2 * C.m_m_ext, "H", "M2")
-                        contact_rects.append(CR("g", rect_g))
-                        rect = [[pnt["g"][0][0] + i * x_offset, pnt["g"][0][1]],
-                                [pnt["g"][0][0] + self.stack * lp["M1"]["pitch"] - lp["M1"]["width"] + i * x_offset,
-                                 pnt["g"][0][1] + 32]]
-                        fill_area_vias(cell_i, rect, "V1")
+                        xi = pnt["p0"][0][0] + i * x_offset
+                        xf = pnt["p1"][0][0] + i * x_offset
+                        # xi = pnt["s"][0][0] - C.m_m_ext + i * x_offset
+                        yi = pnt["g"][0][1] - 1
+                        rect_g = [[xi, yi], [xf, yi + lp["M2"]["width"]]]
+                        add_metal(cell_i, P(xi, yi), xf-xi, "H", "M2")
+                        contact_rects.append(CR(lab_g[i%2], rect_g))
+                        fill_area_vias(cell_i, rect_g, "V1")
 
                         # bulk
                         if pnt["b"]:
@@ -494,7 +493,7 @@ class differential_pair:
 
         if pattern == 4 or pattern == 2:
             x_sp = divide_line(s_d0[0][0],s_d0[1][0], con[0] + con[1] + con[2] + 2, C.m_m_ext, "M3")
-            print(x_sp)
+            # print(x_sp)
 
             for i in range(con[0]): # d0
                 r = add_metal(cell_i, P(x_sp[i], s_d0[0][1] - C.m_m_ext), s_d0[1][1] - s_d0[0][1] + 2 * C.m_m_ext, "V",
@@ -529,14 +528,60 @@ class differential_pair:
         if pattern == 1:
             # only add the source vertical metal
             sp_s = divide_line(s_s[0][0], s_s[1][0], con[2], C.m_m_ext, "M3")
-            for i in range(con[2]):  # d0
-                r = add_metal(cell_i, P(sp_s[i], s_s[0][1] - C.m_m_ext), s_s[1][1] - s_s[0][1] + 2 * C.m_m_ext, "V",
-                              "M3", True)
-                contact_rects.append(CR("s", r, "M3"))
-                for i in range(len(contact_rects)):
-                    if(contact_rects[i].id == "s"):
-                        add_vias_at_recti_v_rectj(cell_i, r, contact_rects[i].rect, "M2")
+            for i in range(con[2]):  # s
+                r = add_metal(cell_i, P(sp_s[i], s_s[0][1] - C.m_m_ext), s_s[1][1] - s_s[0][1] + 2 * C.m_m_ext, "V","M3", True)
+                for j in range(len(contact_rects)):
+                    if(contact_rects[j].id == "s"):
+                        add_vias_at_recti_v_rectj(cell_i, r, contact_rects[j].rect, "M2")
 
+                contact_rects.append(CR("s", r, "M3"))
+
+        elif pattern == 3:
+            # only add the source vertical metal
+            sp = divide_line(s_s[0][0], s_s[1][0], con[2] + con[1] + con[0] + 2, C.m_m_ext, "M3")
+            for i in range(con[0]):
+                r_d0 = add_metal(cell_i, P(sp[i], s_d0[0][1] - C.m_m_ext), s_d0[1][1] - s_d0[0][1] + 2 * C.m_m_ext, "V", "M3",
+                              True)
+                for j in range(len(contact_rects)):
+                    if (contact_rects[j].id == "d0"):
+                        add_vias_at_recti_v_rectj(cell_i, r_d0, contact_rects[j].rect, "M2")
+                contact_rects.append(CR("d0", r_d0, "M3"))
+
+            for i in range(i + 1, i + 2):  # g0
+                r_g0 = add_metal(cell_i, P(sp[i], s_g0[0][1] - C.m_m_ext), s_g0[1][1] - s_g0[0][1] + 2 * C.m_m_ext, "V", "M3",
+                              True)
+                for j in range(len(contact_rects)):
+                    if (contact_rects[j].id == "g0"):
+                        add_vias_at_recti_v_rectj(cell_i, r_g0, contact_rects[j].rect, "M2")
+
+                contact_rects.append(CR("g0", r_g0, "M3"))
+
+            for i in range(i+1, i+1+con[2]):  # s
+                r = add_metal(cell_i, P(sp[i], s_s[0][1] - C.m_m_ext), s_s[1][1] - s_s[0][1] + 2 * C.m_m_ext, "V","M3", True)
+                for j in range(len(contact_rects)):
+                    if(contact_rects[j].id == "s"):
+                        add_vias_at_recti_v_rectj(cell_i, r, contact_rects[j].rect, "M2")
+
+                contact_rects.append(CR("s", r, "M3"))
+
+            for i in range(i + 1, i + 2):  # g1
+                r_g1 = add_metal(cell_i, P(sp[i], s_g1[0][1] - C.m_m_ext), s_g1[1][1] - s_g1[0][1] + 2 * C.m_m_ext, "V", "M3",
+                              True)
+                for j in range(len(contact_rects)):
+                    if (contact_rects[j].id == "g1"):
+                        add_vias_at_recti_v_rectj(cell_i, r_g1, contact_rects[j].rect, "M2")
+
+                contact_rects.append(CR("g1", r, "M3"))
+
+            for i in range(i + 1, i + 1 + con[1]): # d1
+                r_d1 = add_metal(cell_i, P(sp[i], s_d1[0][1] - C.m_m_ext), s_d1[1][1] - s_d1[0][1] + 2 * C.m_m_ext, "V",
+                             "M3",
+                             True)
+            for j in range(len(contact_rects)):
+                if (contact_rects[j].id == "d1"):
+                    add_vias_at_recti_v_rectj(cell_i, r_d1, contact_rects[j].rect, "M2")
+
+            contact_rects.append(CR("d1", r_d1, "M3"))
 
         # -------- poly and fins fabric inclusion ------------------------------------------
         p = cell_i.bounding_box()
