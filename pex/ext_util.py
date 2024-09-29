@@ -107,9 +107,23 @@ def get_polygons(cell):
     for i, p in enumerate(r_t):
         p.id = i
 
-    # return [m_1, m_2, v_0, v_1, a_a, f_s, p_s, d_s, n_w, p_i, c_b, b_p]
-    return {"metal_1":m_1, "metal_2":m_2, "metal_3":m_3, "via_0": v_0, "via_1": v_1, "via_2":v_2, "active_areas": a_a,
-            "fins":f_s, "polys":p_s, "diffusions":d_s, "nwell":n_w, "pins":p_i,"cb":c_b,"bp":b_p, "rvt":r_t, "poly_cut":c_t}
+
+
+
+
+
+    return {
+            "metal_1": m_1, "metal_2": m_2, "metal_3": m_3,
+            "via_0": v_0, "via_1": v_1, "via_2": v_2,
+            "active_areas": a_a,
+            "fins": f_s, "polys": p_s,
+            "diffusions": d_s,
+            "nwell": n_w,
+            "pins": p_i,
+            "cb": c_b, "bp": b_p,
+            "rvt":r_t,
+            "poly_cut": c_t
+            }
 
 def is_point_inside_the_polygon(point, polygon):
     # Convert polygon to shapely polygon
@@ -449,7 +463,7 @@ def get_nets(polygons):
             for ms in groups:
                 if ([p.layer, ms.layer] == [16, 17] or [p.layer, ms.layer] == [15, 15]) and is_point_inside_the_polygon(p.points, ms):
                     nets[i].label = p
-                    print(i, p.text)
+                    # print(i, p.text)
                     nets[i].id.append(p.text)
                     outer_flag = True
                     break  # break innermost loop
@@ -458,7 +472,6 @@ def get_nets(polygons):
         if outer_flag:
             outer_flag = False  # Reset the flag
             continue  # continue the outermost loop
-
 
 
     # Assigning via_0
@@ -492,7 +505,6 @@ def get_nets(polygons):
             outer_flag = False  # Reset the flag
             continue  # continue the outermost loop
 
-
     # Assigning cb
     outer_flag = False
     for p in c_b:
@@ -507,7 +519,6 @@ def get_nets(polygons):
         if outer_flag:
             outer_flag = False  # Reset the flag
             continue  # continue the outermost loop
-
 
     # Assigning bp
     outer_flag = False
@@ -527,7 +538,6 @@ def get_nets(polygons):
     cbx = []
     for i in range(len(nets)):
         cbx.append(nets[i].cbs)
-
 
 
     # Assigning poly
@@ -782,6 +792,52 @@ def adjacent_nodes(nd, nodes, js):
             ret.append(r)
 
     return ret
+
+def merge_metal_polygons(input_cell, target_layer, datatype=0):
+    """
+    This function takes a gdstk cell and merges all polygons on the specified
+    metal layer and datatype into one big polygon. The result is a new cell with
+    all the original elements plus the merged metal polygons.
+
+    :param input_cell: gdstk.Cell - The input cell containing polygons and other elements
+    :param target_layer: int - The layer number of the metal to merge
+    :param datatype: int - The datatype of the metal (default is 0)
+    :return: gdstk.Cell - A new cell with merged metal polygons and all original elements
+    """
+
+    # Create a new cell to store the merged results and other original elements
+    output_cell = gdstk.Cell(input_cell.name + "_merged")
+
+    # List to collect polygons on the target layer and datatype
+    target_polygons = []
+
+    # Iterate through all polygons in the input cell
+    for polygon in input_cell.polygons:
+        # If the polygon is on the target layer and datatype, collect it
+        if polygon.layer == target_layer and polygon.datatype == datatype:
+            target_polygons.append(polygon)
+        else:
+            # Add polygons on other layers directly to the new cell
+            output_cell.add(polygon)
+
+    # Add all paths, labels, and references to the output cell as they are
+    for path in input_cell.paths:
+        output_cell.add(path)
+
+    for label in input_cell.labels:
+        output_cell.add(label)
+
+    for reference in input_cell.references:
+        output_cell.add(reference)
+
+    # Merge polygons on the target layer
+    if target_polygons:
+        # Perform boolean operation to merge polygons
+        merged_polygon = gdstk.boolean(target_polygons, [], "or", layer=target_layer, datatype=datatype)
+        # Add the merged polygon to the new cell
+        output_cell.add(*merged_polygon)
+
+    return output_cell
 
 
 def generate_instance_name(m0_finger, m1_finger, first_d="s"):

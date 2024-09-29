@@ -184,7 +184,8 @@ def pex(file_path):
     lib = gdstk.read_gds(file_path+".gds")
 
     #2) Get desired polygons from the gds file
-    polygons = get_polygons(lib.cells[0])
+    cell = merge_metal_polygons(lib.cells[0], target_layer=17, datatype=0)
+    polygons = get_polygons(cell)
     nets = get_nets(polygons)
 
     #3) identify arrangements and connection of instances

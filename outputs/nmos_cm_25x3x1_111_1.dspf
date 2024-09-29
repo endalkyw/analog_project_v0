@@ -1,0 +1,320 @@
+*|DSPF	1.5
+*|DESIGN	nmos_cm_25x3x1_111_1
+*|DATE	"Wed Jun 19 2025"
+*|VENDOR	"Mentor Graphics Corporation"
+*|PROGRAM	"Calibre xACT"
+*|VERSION	"v2020.4_34.17"
+*|DIVIDER	|
+*|DELIMITER	:
+*|BUSBIT	[]
+* Corner Name: 12lp_11M_3Mx_4Cx_2Kx_2Gx_LB_nominal_detailed_25
+* Nominal Temperature: 25C
+* Circuit Temperature: 25C
+*
+
+* Integrated TICER reduction is not enabled.
+* SHORT DELAY THRESHOLD: 2e-14
+* Fill Mode: NG
+* PEX REDUCE CC ABSOLUTE : disabled
+* PEX REDUCE CC RATIO : disabled
+* Delta transform mode : 344834
+
+.subckt nmos_cm_25x3x1_111_1 d0 d1 s
+
+* Net:s ----------------
+
+
+R1 s s:8 6.104
+R2 s s:4 5.46
+R3 s:4 s:53 2.436
+R4 s:4 MN1@0:s 14
+R5 s:4 s:52 1.092
+R6 s:4 MN1@0:s 14
+R7 s:4 s:5 4.368
+R8 s:4 MN1@0:s 14
+R9 s:5 s:62 2.436
+R10 s:5 MN1@1:s 14
+R11 s:5 s:61 1.092
+R12 s:5 MN1@1:s 14
+R13 s:5 s:9 1.54
+R14 s:5 MN1@1:s 14
+R15 s:9 s:7 25.06
+R16 s:9 s:28 1.008
+R17 s:9 s:25 1.736
+R18 s:7 s:29 1.288
+R19 s:7 s:3 2.632
+R20 s:7 s:23 1.092
+R21 s:3 s:17 1.12
+R22 s:3 MN1@0:b 14
+R23 s:3 s:16 1.12
+R24 s:3 MN1@0:b 14
+R25 s:3 s:6 14.84
+R26 s:3 MN1@0:b 14
+R27 s:6 s:27 1.288
+R28 s:6 s:8 25.06
+R29 s:6 s:0 2.632
+R30 s:0 s:11 1.12
+R31 s:0 MN0@0:b 14
+R32 s:0 s:10 1.12
+R33 s:0 MN0@0:b 14
+R34 s:0 s:22 3.724
+R35 s:0 MN0@0:b 14
+R36 s:8 s:26 1.008
+R37 s:8 s:2 1.54
+R38 s:2 s:44 2.436
+R39 s:2 MN0@1:s 14
+R40 s:2 s:43 1.092
+R41 s:2 MN0@1:s 14
+R42 s:2 s:1 4.368
+R43 s:2 MN0@1:s 14
+R44 s:1 s:35 2.436
+R45 s:1 MN0@0:s 14
+R46 s:1 s:34 1.092
+R47 s:1 MN0@0:s 14
+R48 s:1 s:24 1.092
+R49 s:1 MN0@0:s 14
+R50 s:34 s:33 3.528
+R51 s:34 MN0@0:s 14
+R52 s:33 s:32 3.528
+R53 s:33 MN0@0:s 14
+R54 s:32 s:31 3.528
+R55 s:32 MN0@0:s 14
+R56 s:31 s:30 3.528
+R57 s:31 MN0@0:s 14
+R58 s:30 s:12 2.688
+R59 s:30 MN0@0:s 14
+R60 s:35 s:36 3.528
+R61 s:35 MN0@0:s 14
+R62 s:36 s:37 3.528
+R63 s:36 MN0@0:s 14
+R64 s:37 s:38 3.528
+R65 s:37 MN0@0:s 14
+R66 s:38 s:13 2.688
+R67 s:38 MN0@0:s 14
+R68 s:43 s:42 3.528
+R69 s:43 MN0@1:s 14
+R70 s:42 s:41 3.528
+R71 s:42 MN0@1:s 14
+R72 s:41 s:40 3.528
+R73 s:41 MN0@1:s 14
+R74 s:40 s:39 3.528
+R75 s:40 MN0@1:s 14
+R76 s:39 s:14 2.688
+R77 s:39 MN0@1:s 14
+R78 s:44 s:45 3.528
+R79 s:44 MN0@1:s 14
+R80 s:45 s:46 3.528
+R81 s:45 MN0@1:s 14
+R82 s:46 s:47 3.528
+R83 s:46 MN0@1:s 14
+R84 s:47 s:15 2.688
+R85 s:47 MN0@1:s 14
+R86 s:61 s:60 3.528
+R87 s:61 MN1@1:s 14
+R88 s:60 s:59 3.528
+R89 s:60 MN1@1:s 14
+R90 s:59 s:58 3.528
+R91 s:59 MN1@1:s 14
+R92 s:58 s:57 3.528
+R93 s:58 MN1@1:s 14
+R94 s:57 s:20 2.688
+R95 s:57 MN1@1:s 14
+R96 s:62 s:63 3.528
+R97 s:62 MN1@1:s 14
+R98 s:63 s:64 3.528
+R99 s:63 MN1@1:s 14
+R100 s:64 s:65 3.528
+R101 s:64 MN1@1:s 14
+R102 s:65 s:21 2.688
+R103 s:65 MN1@1:s 14
+R104 s:52 s:51 3.528
+R105 s:52 MN1@0:s 14
+R106 s:51 s:50 3.528
+R107 s:51 MN1@0:s 14
+R108 s:50 s:49 3.528
+R109 s:50 MN1@0:s 14
+R110 s:49 s:48 3.528
+R111 s:49 MN1@0:s 14
+R112 s:48 s:18 2.688
+R113 s:48 MN1@0:s 14
+R114 s:53 s:54 3.528
+R115 s:53 MN1@0:s 14
+R116 s:54 s:55 3.528
+R117 s:54 MN1@0:s 14
+R118 s:55 s:56 3.528
+R119 s:55 MN1@0:s 14
+R120 s:56 s:19 2.688
+R121 s:56 MN1@0:s 14
+R122 MN0@0:b MN0@1:b 0.01
+R123 MN0@1:b MN0@2:b 0.01
+R124 MN0@1:s MN0@2:s 0.01
+R125 MN1@0:b MN1@1:b 0.01
+R126 MN1@1:b MN1@2:b 0.01
+R127 MN1@1:s MN1@2:s 0.01
+C1 s:4 0 1.827e-14
+C2 s:4 0 8.190000000000001e-15
+C3 s:4 0 3.2760000000000004e-14
+C4 s:5 0 1.827e-14
+C5 s:5 0 8.190000000000001e-15
+C6 s:5 0 1.155e-14
+C7 s:9 0 1.8795e-13
+C8 s:9 0 7.56e-15
+C9 s:9 0 1.3020000000000001e-14
+C10 s:7 0 9.66e-15
+C11 s:7 0 1.974e-14
+C12 s:7 0 8.190000000000001e-15
+C13 s:3 0 8.400000000000001e-15
+C14 s:3 0 8.400000000000001e-15
+C15 s:3 0 1.113e-13
+C16 s:6 0 9.66e-15
+C17 s:6 0 1.8795e-13
+C18 s:6 0 1.974e-14
+C19 s:0 0 8.400000000000001e-15
+C20 s:0 0 8.400000000000001e-15
+C21 s:0 0 2.793e-14
+C22 s:8 0 7.56e-15
+C23 s:8 0 1.155e-14
+C24 s:2 0 1.827e-14
+C25 s:2 0 8.190000000000001e-15
+C26 s:2 0 3.2760000000000004e-14
+C27 s:1 0 1.827e-14
+C28 s:1 0 8.190000000000001e-15
+C29 s:1 0 8.190000000000001e-15
+C30 s:34 0 2.6460000000000002e-14
+C31 s:33 0 2.6460000000000002e-14
+C32 s:32 0 2.6460000000000002e-14
+C33 s:31 0 2.6460000000000002e-14
+C34 s:30 0 2.016e-14
+C35 s:35 0 2.6460000000000002e-14
+C36 s:36 0 2.6460000000000002e-14
+C37 s:37 0 2.6460000000000002e-14
+C38 s:38 0 2.016e-14
+C39 s:43 0 2.6460000000000002e-14
+C40 s:42 0 2.6460000000000002e-14
+C41 s:41 0 2.6460000000000002e-14
+C42 s:40 0 2.6460000000000002e-14
+C43 s:39 0 2.016e-14
+C44 s:44 0 2.6460000000000002e-14
+C45 s:45 0 2.6460000000000002e-14
+C46 s:46 0 2.6460000000000002e-14
+C47 s:47 0 2.016e-14
+C48 s:61 0 2.6460000000000002e-14
+C49 s:60 0 2.6460000000000002e-14
+C50 s:59 0 2.6460000000000002e-14
+C51 s:58 0 2.6460000000000002e-14
+C52 s:57 0 2.016e-14
+C53 s:62 0 2.6460000000000002e-14
+C54 s:63 0 2.6460000000000002e-14
+C55 s:64 0 2.6460000000000002e-14
+C56 s:65 0 2.016e-14
+C57 s:52 0 2.6460000000000002e-14
+C58 s:51 0 2.6460000000000002e-14
+C59 s:50 0 2.6460000000000002e-14
+C60 s:49 0 2.6460000000000002e-14
+C61 s:48 0 2.016e-14
+C62 s:53 0 2.6460000000000002e-14
+C63 s:54 0 2.6460000000000002e-14
+C64 s:55 0 2.6460000000000002e-14
+C65 s:56 0 2.016e-14
+
+
+* Net:d0 ----------------
+
+
+R128 MN0@0:d MN0@1:d 0.01
+
+
+
+* Net:d1 ----------------
+
+
+R129 d1 d1:0 2.184
+R130 d1 d1:1 2.184
+R131 d1:1 d1:23 1.092
+R132 d1:1 MN1@2:d 14
+R133 d1:1 d1:22 2.436
+R134 d1:1 MN1@2:d 14
+R135 d1:1 d1:9 1.008
+R136 d1:1 MN1@2:d 14
+R137 d1:22 d1:21 3.528
+R138 d1:22 MN1@2:d 14
+R139 d1:21 d1:20 3.528
+R140 d1:21 MN1@2:d 14
+R141 d1:20 d1:19 3.528
+R142 d1:20 MN1@2:d 14
+R143 d1:19 d1:5 2.688
+R144 d1:19 MN1@2:d 14
+R145 d1:23 d1:24 3.528
+R146 d1:23 MN1@2:d 14
+R147 d1:24 d1:25 3.528
+R148 d1:24 MN1@2:d 14
+R149 d1:25 d1:26 3.528
+R150 d1:25 MN1@2:d 14
+R151 d1:26 d1:27 3.528
+R152 d1:26 MN1@2:d 14
+R153 d1:27 d1:6 2.688
+R154 d1:27 MN1@2:d 14
+R155 d1:0 d1:14 1.092
+R156 d1:0 MN1@0:d 14
+R157 d1:0 d1:13 2.436
+R158 d1:0 MN1@0:d 14
+R159 d1:0 d1:2 0.644
+R160 d1:0 MN1@0:d 14
+R161 d1:2 d1:8 1.008
+R162 d1:2 d1:7 1.008
+R163 d1:13 d1:12 3.528
+R164 d1:13 MN1@0:d 14
+R165 d1:12 d1:11 3.528
+R166 d1:12 MN1@0:d 14
+R167 d1:11 d1:10 3.528
+R168 d1:11 MN1@0:d 14
+R169 d1:10 d1:3 2.688
+R170 d1:10 MN1@0:d 14
+R171 d1:14 d1:15 3.528
+R172 d1:14 MN1@0:d 14
+R173 d1:15 d1:16 3.528
+R174 d1:15 MN1@0:d 14
+R175 d1:16 d1:17 3.528
+R176 d1:16 MN1@0:d 14
+R177 d1:17 d1:18 3.528
+R178 d1:17 MN1@0:d 14
+R179 d1:18 d1:4 2.688
+R180 d1:18 MN1@0:d 14
+R181 MN1@0:d MN1@1:d 0.01
+R182 MN1@2:d MN2@0:d 0.01
+C66 d1:1 0 8.190000000000001e-15
+C67 d1:1 0 1.827e-14
+C68 d1:1 0 7.56e-15
+C69 d1:22 0 2.6460000000000002e-14
+C70 d1:21 0 2.6460000000000002e-14
+C71 d1:20 0 2.6460000000000002e-14
+C72 d1:19 0 2.016e-14
+C73 d1:23 0 2.6460000000000002e-14
+C74 d1:24 0 2.6460000000000002e-14
+C75 d1:25 0 2.6460000000000002e-14
+C76 d1:26 0 2.6460000000000002e-14
+C77 d1:27 0 2.016e-14
+C78 d1:0 0 8.190000000000001e-15
+C79 d1:0 0 1.827e-14
+C80 d1:0 0 4.83e-15
+C81 d1:2 0 7.56e-15
+C82 d1:2 0 7.56e-15
+C83 d1:13 0 2.6460000000000002e-14
+C84 d1:12 0 2.6460000000000002e-14
+C85 d1:11 0 2.6460000000000002e-14
+C86 d1:10 0 2.016e-14
+C87 d1:14 0 2.6460000000000002e-14
+C88 d1:15 0 2.6460000000000002e-14
+C89 d1:16 0 2.6460000000000002e-14
+C90 d1:17 0 2.6460000000000002e-14
+C91 d1:18 0 2.016e-14
+
+
+xMN0@0 MN0@0:d MN0@0:g MN0@0:s MN0@0:b nfet m=1 l=1.4e-08 nfin=25 nf=1 par=1 par_nf=1 asej=1.49e-14 adej=1.49e-14 psej=2.97e-06 pdej=2.97e-06 pdevdops=1 pdevlgeos=1 pdevwgeos=1psw_acv_sign=1 plnest=1 pldist=1 plorient=0 cpp=7.8e-08 fpitch=4.8e-08 xpos=-99 ypos=-99 ptwell=0sca=0 scb=0 scc=0 pre_layout_local=-1 ngcon=1 p_vta=0 p_la=0 u0mult_fet=1 lle_sa=71e-9 lle_sb=71e-9lle_rxrxa=78e-9 lle_rxrxb=78e-9 lle_rxrxn=192e-9 lle_rxrxs=192e-9 lle_pcrxn=55e-9 lle_pcrxs=55e-9lle_nwa=2e-6 lle_nwb=2e-6 lle_nwn=192e-9 lle_nws=192e-9 lle_ctne=0 lle_ctnw=0 lle_ctse=0 lle_ctsw=0lle_sctne=0 lle_sctnw=0 lle_sctse=0 lle_sctsw=0 lrsd=27e-9 dtemp=0 l_shape=0 l_shape_s=0 nsig_dop1=0nsig_dop2=0 nsig_dibl=0 nsig_pc=0 nsig_rx=0 fc_index=0 fc_sigma=3 analog=-1 nf_pex=1
+xMN0@1 MN0@1:d MN0@1:g MN0@1:s MN0@1:b nfet m=1 l=1.4e-08 nfin=25 nf=1 par=1 par_nf=1 asej=1.49e-14 adej=1.49e-14 psej=2.97e-06 pdej=2.97e-06 pdevdops=1 pdevlgeos=1 pdevwgeos=1psw_acv_sign=1 plnest=1 pldist=1 plorient=0 cpp=7.8e-08 fpitch=4.8e-08 xpos=-99 ypos=-99 ptwell=0sca=0 scb=0 scc=0 pre_layout_local=-1 ngcon=1 p_vta=0 p_la=0 u0mult_fet=1 lle_sa=71e-9 lle_sb=71e-9lle_rxrxa=78e-9 lle_rxrxb=78e-9 lle_rxrxn=192e-9 lle_rxrxs=192e-9 lle_pcrxn=55e-9 lle_pcrxs=55e-9lle_nwa=2e-6 lle_nwb=2e-6 lle_nwn=192e-9 lle_nws=192e-9 lle_ctne=0 lle_ctnw=0 lle_ctse=0 lle_ctsw=0lle_sctne=0 lle_sctnw=0 lle_sctse=0 lle_sctsw=0 lrsd=27e-9 dtemp=0 l_shape=0 l_shape_s=0 nsig_dop1=0nsig_dop2=0 nsig_dibl=0 nsig_pc=0 nsig_rx=0 fc_index=0 fc_sigma=3 analog=-1 nf_pex=1
+xMN0@2 MN0@2:d MN0@2:g MN0@2:s MN0@2:b nfet m=1 l=1.4e-08 nfin=25 nf=1 par=1 par_nf=1 asej=1.49e-14 adej=1.49e-14 psej=2.97e-06 pdej=2.97e-06 pdevdops=1 pdevlgeos=1 pdevwgeos=1psw_acv_sign=1 plnest=1 pldist=1 plorient=0 cpp=7.8e-08 fpitch=4.8e-08 xpos=-99 ypos=-99 ptwell=0sca=0 scb=0 scc=0 pre_layout_local=-1 ngcon=1 p_vta=0 p_la=0 u0mult_fet=1 lle_sa=71e-9 lle_sb=71e-9lle_rxrxa=78e-9 lle_rxrxb=78e-9 lle_rxrxn=192e-9 lle_rxrxs=192e-9 lle_pcrxn=55e-9 lle_pcrxs=55e-9lle_nwa=2e-6 lle_nwb=2e-6 lle_nwn=192e-9 lle_nws=192e-9 lle_ctne=0 lle_ctnw=0 lle_ctse=0 lle_ctsw=0lle_sctne=0 lle_sctnw=0 lle_sctse=0 lle_sctsw=0 lrsd=27e-9 dtemp=0 l_shape=0 l_shape_s=0 nsig_dop1=0nsig_dop2=0 nsig_dibl=0 nsig_pc=0 nsig_rx=0 fc_index=0 fc_sigma=3 analog=-1 nf_pex=1
+xMN1@0 MN1@0:d MN1@0:g MN1@0:s MN1@0:b nfet m=1 l=1.4e-08 nfin=25 nf=1 par=1 par_nf=1 asej=1.49e-14 adej=1.49e-14 psej=2.97e-06 pdej=2.97e-06 pdevdops=1 pdevlgeos=1 pdevwgeos=1psw_acv_sign=1 plnest=1 pldist=1 plorient=0 cpp=7.8e-08 fpitch=4.8e-08 xpos=-99 ypos=-99 ptwell=0sca=0 scb=0 scc=0 pre_layout_local=-1 ngcon=1 p_vta=0 p_la=0 u0mult_fet=1 lle_sa=71e-9 lle_sb=71e-9lle_rxrxa=78e-9 lle_rxrxb=78e-9 lle_rxrxn=192e-9 lle_rxrxs=192e-9 lle_pcrxn=55e-9 lle_pcrxs=55e-9lle_nwa=2e-6 lle_nwb=2e-6 lle_nwn=192e-9 lle_nws=192e-9 lle_ctne=0 lle_ctnw=0 lle_ctse=0 lle_ctsw=0lle_sctne=0 lle_sctnw=0 lle_sctse=0 lle_sctsw=0 lrsd=27e-9 dtemp=0 l_shape=0 l_shape_s=0 nsig_dop1=0nsig_dop2=0 nsig_dibl=0 nsig_pc=0 nsig_rx=0 fc_index=0 fc_sigma=3 analog=-1 nf_pex=1
+xMN1@1 MN1@1:d MN1@1:g MN1@1:s MN1@1:b nfet m=1 l=1.4e-08 nfin=25 nf=1 par=1 par_nf=1 asej=1.49e-14 adej=1.49e-14 psej=2.97e-06 pdej=2.97e-06 pdevdops=1 pdevlgeos=1 pdevwgeos=1psw_acv_sign=1 plnest=1 pldist=1 plorient=0 cpp=7.8e-08 fpitch=4.8e-08 xpos=-99 ypos=-99 ptwell=0sca=0 scb=0 scc=0 pre_layout_local=-1 ngcon=1 p_vta=0 p_la=0 u0mult_fet=1 lle_sa=71e-9 lle_sb=71e-9lle_rxrxa=78e-9 lle_rxrxb=78e-9 lle_rxrxn=192e-9 lle_rxrxs=192e-9 lle_pcrxn=55e-9 lle_pcrxs=55e-9lle_nwa=2e-6 lle_nwb=2e-6 lle_nwn=192e-9 lle_nws=192e-9 lle_ctne=0 lle_ctnw=0 lle_ctse=0 lle_ctsw=0lle_sctne=0 lle_sctnw=0 lle_sctse=0 lle_sctsw=0 lrsd=27e-9 dtemp=0 l_shape=0 l_shape_s=0 nsig_dop1=0nsig_dop2=0 nsig_dibl=0 nsig_pc=0 nsig_rx=0 fc_index=0 fc_sigma=3 analog=-1 nf_pex=1
+xMN1@2 MN1@2:d MN1@2:g MN1@2:s MN1@2:b nfet m=1 l=1.4e-08 nfin=25 nf=1 par=1 par_nf=1 asej=1.49e-14 adej=1.49e-14 psej=2.97e-06 pdej=2.97e-06 pdevdops=1 pdevlgeos=1 pdevwgeos=1psw_acv_sign=1 plnest=1 pldist=1 plorient=0 cpp=7.8e-08 fpitch=4.8e-08 xpos=-99 ypos=-99 ptwell=0sca=0 scb=0 scc=0 pre_layout_local=-1 ngcon=1 p_vta=0 p_la=0 u0mult_fet=1 lle_sa=71e-9 lle_sb=71e-9lle_rxrxa=78e-9 lle_rxrxb=78e-9 lle_rxrxn=192e-9 lle_rxrxs=192e-9 lle_pcrxn=55e-9 lle_pcrxs=55e-9lle_nwa=2e-6 lle_nwb=2e-6 lle_nwn=192e-9 lle_nws=192e-9 lle_ctne=0 lle_ctnw=0 lle_ctse=0 lle_ctsw=0lle_sctne=0 lle_sctnw=0 lle_sctse=0 lle_sctsw=0 lrsd=27e-9 dtemp=0 l_shape=0 l_shape_s=0 nsig_dop1=0nsig_dop2=0 nsig_dibl=0 nsig_pc=0 nsig_rx=0 fc_index=0 fc_sigma=3 analog=-1 nf_pex=1
+
+.end

@@ -79,7 +79,7 @@ def create_base_layout(cell, total_fingers, total_fins, mos_type, stack = 1, mul
         if total_fins < 5:
             contact_points["p0"] = [[x_i, y_i-144]]
             add_v_metal_array(cell_i, P(C.rx_m1, 0 - 144), y_f+144,  stack*lp["M1"]["pitch"], total_fingers+1, "M1")
-            fill_with_vias_array(cell_i, "V", (C.rx_m1, 0 - 144), (C.rx_m1 + lp["M1"]["width"], y_f),
+            fill_with_vias_array(cell_i, "V", (C.rx_m1, 0), (C.rx_m1 + lp["M1"]["width"], y_f),
                                  total_fingers + 1, stack * lp["CA"]["pitch"], "V0")
         else:
             contact_points["p0"] = [[x_i, y_i]]

@@ -38,11 +38,11 @@ from layout_gen.primitives.differential_pair import differential_pair
 
 # ---------------------------------------------------------------------------------------------
 # For single current mirror test
-# m0 = Mos({'id': 'A', 'fins': 5, 'fingers': 5, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
-# m1 = Mos({'id': 'A', 'fins': 5, 'fingers': 5, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
-# c1 = current_mirror(m0, m1, "test_cm")
-# c1.create_layout(3, labels=("d0", "d1", "s"), con=[1, 1, 1])
-# write_gds(c1.cell, "nmos_cm_x")
+m0 = Mos({'id': 'A', 'fins': 15, 'fingers': 5, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
+m1 = Mos({'id': 'A', 'fins': 15, 'fingers': 5, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
+c1 = current_mirror(m0, m1, "test_cm")
+c1.create_layout(3, labels=("d0", "d1", "s"), con=[1, 1, 1])
+write_gds(c1.cell, "nmos_cm_x")
 #
 #
 # # matplotlib.use('TkAgg')
@@ -54,17 +54,17 @@ from layout_gen.primitives.differential_pair import differential_pair
 
 
 # For single differential pair test
-m0 = Mos({'id': 'A', 'fins': 10, 'fingers': 4, 'stack': 1, 'multiplier': 3, 'mos_type': "N"})
-m1 = Mos({'id': 'A', 'fins': 10, 'fingers': 4, 'stack': 1, 'multiplier': 3, 'mos_type': "N"})
-c1 = differential_pair(m0, m1, "test_dp")
-c1.create_layout(2, labels=("b", "g0", "g1", "d0", "d1", "s"), con=[1, 1, 1]) # connectors d0, d1, s
-write_gds(c1.cell, "nmos_dp")
+# m0 = Mos({'id': 'A', 'fins': 3, 'fingers': 3, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
+# m1 = Mos({'id': 'A', 'fins': 3, 'fingers': 3, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
+# c1 = differential_pair(m0, m1, "test_dp")
+# c1.create_layout(3, labels=("b", "g0", "g1", "d0", "d1", "s"), con=[1, 1, 1]) # connectors d0, d1, s
+# write_gds(c1.cell, "nmos_cm_trial")
 
 
 
 
 # # matplotlib.use('TkAgg')
-plt.rcParams['figure.facecolor'] = 'black'  # Set figure background
-plt.rcParams['axes.facecolor'] = 'black'    # Set axes background
-show_layout(c1.cell, fig_size=(6, 4))
+# plt.rcParams['figure.facecolor'] = 'black'  # Set figure background
+# plt.rcParams['axes.facecolor'] = 'black'    # Set axes background
+# show_layout(c1.cell, fig_size=(6, 4))
 # plt.savefig("outputs/trial_cm2.png")

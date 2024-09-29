@@ -49,32 +49,31 @@ def show_gds(ax,cell):
     ax.set_yticks([])
 
 
-def show_nets(ax, nets, size = 1400):
+def show_nets(ax, nets, vias_on = False):
   color_lst = get_colors(len(nets))
   for ci, net in enumerate(nets):
       for m in net.metals:
           x, y, w, h = xw(m.points)
           rect = patches.Rectangle((x, y), w, h, edgecolor='r', facecolor=color_lst[ci])
           ax.add_patch(rect)
-          ax.set_xlim(0, size)
-          ax.set_ylim(0, size)
           ax.text(net.label.points[0], net.label.points[1], net.label.text, fontsize=14, color='blue', style='italic',
-                      weight='bold',
-                      verticalalignment='center', horizontalalignment='center')
+                      weight='bold', verticalalignment='center', horizontalalignment='center')
 
-          for v in net.vias:
-              if v.layer == 35:
-                ax.plot(v.mid[0], v.mid[1], '*', color = "blue")
-              elif v.layer == 16:
-                ax.plot(v.mid[0], v.mid[1], '*', color="red")
+      if vias_on:
+        for v in net.vias:
+            if v.layer == 35:
+              ax.plot(v.mid[0], v.mid[1], '*', color = "blue")
+            elif v.layer == 16:
+              ax.plot(v.mid[0], v.mid[1], '*', color="red")
 
-          ax.spines['top'].set_visible(False)
-          ax.spines['right'].set_visible(False)
-          ax.spines['left'].set_visible(False)
-          ax.spines['bottom'].set_visible(False)
-          ax.set_aspect('equal')
-          ax.set_xticks([])
-          ax.set_yticks([])
+
+  ax.spines['top'].set_visible(False)
+  ax.spines['right'].set_visible(False)
+  ax.spines['left'].set_visible(False)
+  ax.spines['bottom'].set_visible(False)
+  ax.set_aspect('equal')
+  ax.set_xticks([])
+  ax.set_yticks([])
 
 
 def show_stk_nets(ax, js, nodes):

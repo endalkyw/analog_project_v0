@@ -26,6 +26,22 @@ class polygon:
 
         self.vt_box = []
 
+    def update(self, points):
+        self.points = points
+        self.mid_point = [(points[0][0] + points[1][0])/2, (points[1][1] + points[2][1])/2]
+        if abs(points[0][0] - points[1][0]) > abs(points[1][1] - points[2][1]):
+            self.orientation = "h"
+            self.mid = (points[1][1] + points[2][1]) / 2
+            self.area = abs(points[0][0]-points[1][0])*abs(points[1][1]-points[2][1])
+        elif abs(points[0][0] - points[1][0]) < abs(points[1][1] - points[2][1]):
+            self.orientation = "v"
+            self.mid = (points[0][0] + points[1][0]) / 2
+            self.area = abs(points[0][0]-points[1][0])*abs(points[1][1]-points[2][1])
+        else:
+            self.orientation = "s"
+            self.mid = [(points[0][0] + points[1][0]) / 2, (points[1][1] + points[2][1]) / 2]
+            self.area = abs(points[0][0]-points[1][0])*abs(points[1][1]-points[2][1])
+
 class Net:
     def __init__(self):
         self.id     = []

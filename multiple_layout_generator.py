@@ -98,9 +98,6 @@ def generate_cm_layouts(fins_0: int, fins_1: int, stack: int, type, source_first
                     generate(fins, fingers, m, stack, 5, c, "N")
 
 
-
-
-
 @timing_decorator
 def generate_dp_layouts(fins_01: int, stack: int, type, source_first=True):
     def generate(fins, nf, m, stack, pattern, con, type):

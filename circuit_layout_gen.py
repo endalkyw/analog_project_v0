@@ -22,14 +22,14 @@ def find_center(rects):
 m0 = Mos({'id': 'A', 'fins': 16, 'fingers': 6, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
 m1 = Mos({'id': 'A', 'fins': 16, 'fingers': 6, 'stack': 1, 'multiplier': 1, 'mos_type': "N"})
 n_cc = current_mirror(m0, m1, "test_cm")
-n_cc.create_layout(2, labels=("d0", "d1", "s"), con=[1, 1, 1], fabric_on=False)
+n_cc.create_layout(0, labels=("d0", "d1", "s"), con=[1, 1, 1], fabric_on=False)
 n_cc_b = n_cc.cell.bounding_box()
 
 # pmos current mirror
-m0 = Mos({'id': 'A', 'fins': 5, 'fingers': 5, 'stack': 1, 'multiplier': 3, 'mos_type': "P"})
-m1 = Mos({'id': 'A', 'fins': 5, 'fingers': 5, 'stack': 1, 'multiplier': 3, 'mos_type': "P"})
+m0 = Mos({'id': 'A', 'fins': 15, 'fingers': 6, 'stack': 1, 'multiplier': 1, 'mos_type': "P"})
+m1 = Mos({'id': 'A', 'fins': 15, 'fingers': 6, 'stack': 1, 'multiplier': 1, 'mos_type': "P"})
 p_cc = current_mirror(m0, m1, "test_cm")
-p_cc.create_layout(1, labels=("d0", "d1", "s"), con=[1, 1, 1], fabric_on=False)
+p_cc.create_layout(0, labels=("d0", "d1", "s"), con=[1, 1, 1], fabric_on=False)
 p_cc_b = n_cc.cell.bounding_box()
 
 # nmos differential pair

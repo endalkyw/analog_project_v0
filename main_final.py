@@ -15,7 +15,7 @@ def main():
     # arguments = sys.argv[1:]  # All arguments except the script name
     #
     # print(f"Arguments: {arguments}")
-    arguments = ["-gen","-pex"]
+    arguments = ["-gen", "-pex"]
     # arguments = ["-gen"]
     # arguments = ["-pex"]
     #
