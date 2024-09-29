@@ -89,7 +89,7 @@ def create_spice(fins, stacks, vcm, vd,  Is, vdd, load_c, tb_index=0):
         ".measure tran min_v min v(vout)",
         ".measure tran del param = \'max_v - min_v\'",
         ".measure tran vout10 param = \'0.1*del + min_v\'",
-        ".measure tran vout90 param = \'0.7*del + min_v\'",
+        ".measure tran vout90 param = \'0.9*del + min_v\'",
         ".measure tran t10 when v(vout) = \'vout10\' rise=1",
         ".measure tran t90 when v(vout) = \'vout90\' rise=1",
         ".measure tran slew_rate param = \'(vout90-vout10)/(t90-t10)\'",
@@ -202,13 +202,24 @@ def main():
     # print(result_5)    
     
 
-    inputs = {"fins": [96, 132, 74], 
+    # inputs = {"fins": [20, 40, 18], 
+    #           "stacks": [1, 1, 1], 
+    #           "vcm": 0.6, 
+    #           "vd": 0.001, 
+    #           "Is": 100e-6, 
+    #           "vdd": 1.2, 
+    #           "load_c": 20e-12}
+
+
+#      Fins    [12.03824229087944, 22.53984569976663, 15.278050396216315]
+#  Is      [6.96215361e-05]
+    inputs = {"fins": [12, 23, 15], 
               "stacks": [1, 1, 1], 
-              "vcm": 0.5, 
+              "vcm": 0.6, 
               "vd": 0.001, 
-              "Is": 378.4e-6, 
+              "Is": 70e-6, 
               "vdd": 1.2, 
-              "load_c": 0.1e-12}
+              "load_c": 20e-12}
 
     result = get_ota_specs(**inputs)
 

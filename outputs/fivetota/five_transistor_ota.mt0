@@ -1,0 +1,8 @@
+$DATA1 SOURCE='PrimeSim HSPICE' VERSION='U-2023.03-SP2 linux6' PARAM_COUNT=0
+.TITLE '*********************************************'
+ max_v            min_v            del              vout10          
+ vout90           t10              t90              slew_rate       
+ temper           alter#          
+    0.7564           0.4792           0.2772           0.5069       
+    0.7287         2.583e-07        3.423e-07        2.638e+06      
+   25.0000        1               

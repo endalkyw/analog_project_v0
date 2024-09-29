@@ -1,0 +1,20 @@
+* "simulator" "PrimeSim HSPICE"
+* "version" "U-2023.03-SP2 linux64"
+* "format" "HSP"
+* "rundate" "16:05:32 09/29/2024 "
+* "netlist" "outputs/five_transistor_ota.sp "
+* "runtitle" "*********************************************"
+* time =    0.            
+* temperature =   25.0000        
+*** BEGIN: Saved Operating Point ***                     
+.option 
++ gmindc= 1.000e-12       
+.nodeset
++ c =   0.6000        
++ is =   0.4434        
++ vdd =   1.2000        
++ vin_p =   0.7500        
++ vout =   0.7564        
++ xota.nx0 =   0.8277        
++ xota.ny =   0.3942        
+***   END: Saved Operating Point ***                     
