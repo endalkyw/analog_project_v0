@@ -1,7 +1,10 @@
 import matplotlib.pyplot as plt
-from scipy.interpolate import CubicSpline
+from scipy.interpolate import CubicSpline, interp1d
+from scipy.misc import derivative
 from LUT.fetch_ import *
 from tools.log_file import *
+from sklearn.linear_model import LinearRegression
+import time
 
 
 # ---------- initialization -----------------------------
@@ -11,6 +14,34 @@ VSB = np.array([0])
 LEN = np.array([14e-9])
 FIN = np.array([2, 6, 10, 20, 40])
 
+
+def numerical_derivative(x, y):
+    dy = np.diff(y)  # Differences in y
+    dx = np.diff(x)  # Differences in x
+    return dy / dx   # Deriva
+
+def extract_vth(vgs, gm):
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    name = f"temp/output_{timestamp}"
+
+    dgm = numerical_derivative(vgs, gm)
+
+    n = 5
+    ind = np.argsort(dgm)[::-1]
+    model = LinearRegression()
+    model.fit(vgs[ind[0]:ind[n]].reshape(-1, 1), gm[ind[0]:ind[n]].reshape(-1, 1))
+    y_pred = model.predict(vgs[10:30].reshape(-1, 1))
+
+    m = model.coef_[0]
+    b = model.intercept_
+    vth = -b/m
+
+    # plt.plot(vgs, gm, '*-')
+    # plt.plot(vgs[10:30], y_pred)
+    # plt.plot(vth, 0, 'o')
+    # plt.savefig(name)
+
+    return vth
 
 class Five_T_OTA():
     def __init__(self) -> None:
@@ -95,8 +126,10 @@ class Five_T_OTA():
 
         A   = 20*np.log10(gm_1/(gds_1+gds_2)[0])
         GBW = gm_1/(2*np.pi*(self.load_C+cdd_1+cdd_2))[0]  
-        fins = [fins_0[0], fins_1[0], fins_2[0]]        
-        
+        fins = [fins_0[0], fins_1[0], fins_2[0]]
+
+        extract_vth(VGS, self.tb.lookup("gm", length[1], self.fin_ref, "n", vds_val=vds_1))
+
         other_res = {"vx":vx, 
                      "vy":vx+vds_1, 
                      "gm_0": gm_0, 
@@ -105,9 +138,9 @@ class Five_T_OTA():
                      "cdd_1": cdd_1,
                      "cdd_2": cdd_2,
                      "l_0": gds_0/id_0, 
-                     "l_1":gds_1/id_1, 
-                     "l_2":gds_2/id_2,
-                     "ugf":GBW,
+                     "l_1": gds_1/id_1,
+                     "l_2": gds_2/id_2,
+                     "ugf": GBW,
                      "cgg_1":cgg_1,
                      "cgg_2":cgg_2,
                      "Itail": id_0,
