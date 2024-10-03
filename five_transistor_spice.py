@@ -9,6 +9,7 @@ import re
 import os
 from tools.timing import *
 from tools.log_file import *
+import matplotlib.pyplot as plt
 
 def create_spice(fins, stacks, vcm, vd,  Is, vdd, load_c, tb_index=0):
     # vin_m vin_p vdd is gnd
@@ -93,6 +94,8 @@ def create_spice(fins, stacks, vcm, vd,  Is, vdd, load_c, tb_index=0):
         ".measure tran t10 when v(vout) = \'vout10\' rise=1",
         ".measure tran t90 when v(vout) = \'vout90\' rise=1",
         ".measure tran slew_rate param = \'(vout90-vout10)/(t90-t10)\'",
+        # ".measure tran max_slew_rate MAX deriv(v(out))", - this doesn't work
+        ".print tran v(vout)",
         ""
     ]
 
@@ -161,18 +164,29 @@ def parse_outputs(tb_index):
 
     elif tb_index == 2:
         content = []
-        with open("outputs/fivetota/five_transistor_ota.mt0", 'r') as file:
-             for line in file:
-               c = line.split()
-               if len(c)==4:
-                 content.append(line.split())
+        # with open("outputs/fivetota/five_transistor_ota.mt0", 'r') as file:
+        #      for line in file:
+        #        c = line.split()
+        #        if len(c)==4:
+        #          content.append(line.split())
+        # SR = float(content[3][3])/1e6
 
-        return {"SR": float(content[3][3])/1e6} #in volt/us
+        val_list = extract_between_x_and_y("outputs/fivetota/five_transistor_ota.lis")
+        v_list = []
+        for val in val_list[3::]:
+           t, v = val.split()
+           v_list.append([float(t), float(v)]) 
+
+        v_l = np.array(v_list)
+        sr  = np.diff(v_l[:,1])/np.diff(v_l[:,0])
+        SR  = np.round(max(sr)/1e6, decimals=3)
+
+        return {"SR": SR} #in volt/us
 
 def get_ota_specs(fins, stacks, vcm, vd, Is, vdd, load_c):
     # this function returns all the required specs of the circuit
     results = {}
-    for test in [0, 1, 2]:
+    for test in [0,1,2]:
         create_spice(fins, stacks, vcm, vd, Is, vdd, load_c, test)
         simulate("fivetota")
         os.system('clear')
@@ -211,24 +225,29 @@ def main():
     #           "load_c": 20e-12}
 
 
-#      Fins    [12.03824229087944, 22.53984569976663, 15.278050396216315]
-#  Is      [6.96215361e-05]
-    inputs = {"fins": [12, 23, 15], 
-              "stacks": [1, 1, 1], 
-              "vcm": 0.6, 
-              "vd": 0.001, 
-              "Is": 70e-6, 
-              "vdd": 1.2, 
-              "load_c": 20e-12}
+    sr = []
+    cx  = np.arange(0.1e-12, 10e-12, 0.5e-12)
+    for c in cx:
+        inputs = {"fins": [10, 20, 12], 
+                  "stacks": [1, 1, 1], 
+                  "vcm": 0.6, 
+                  "vd": 0.0001, 
+                  "Is": 100e-6, 
+                  "vdd": 1.2, 
+                  "load_c": c}
 
-    result = get_ota_specs(**inputs)
+        result = get_ota_specs(**inputs)
+        sr.append(result["SR"])
+    
 
-    write_log_file("result.txt","------------------------------------------\n", "a")
-    write_log_file("result.txt",str(inputs), "a")
-    write_log_file("result.txt", str(result), "a")
-    write_log_file("result.txt","------------------------------------------\n", "a")
+    plt.plot(cx, sr, 'o-')
+    plt.savefig("sr.png")
+        # write_log_file("result.txt","------------------------------------------\n", "a")
+        # write_log_file("result.txt",str(inputs), "a")
+        # write_log_file("result.txt", str(result), "a")
+        # write_log_file("result.txt","------------------------------------------\n", "a")
 
-    print(result)
+        # print(result)
 
 
 

@@ -3,6 +3,6 @@ $DATA1 SOURCE='PrimeSim HSPICE' VERSION='U-2023.03-SP2 linux6' PARAM_COUNT=0
  max_v            min_v            del              vout10          
  vout90           t10              t90              slew_rate       
  temper           alter#          
-    0.7564           0.4792           0.2772           0.5069       
-    0.7287         2.583e-07        3.423e-07        2.638e+06      
+    0.7538           0.4772           0.2766           0.5048       
+    0.7261         2.511e-07        2.519e-07        2.684e+08      
    25.0000        1               

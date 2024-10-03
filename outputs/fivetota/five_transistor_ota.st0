@@ -3,7 +3,7 @@ Input File: outputs/five_transistor_ota.sp
 lic:
 lic: FLEXlm: SDK_12.11.9.1
 lic: USER:   gebru009             HOSTNAME: savanna.ece.umn.edu
-lic: HOSTID: 65801fa8             PID:      16051
+lic: HOSTID: 65801fa8             PID:      7834
 lic: Using FLEXlm license file:
 lic: 27020@synopsys.ece.umn.edu
 lic: Checkout 8 hspice
@@ -11,7 +11,7 @@ lic: License/Maintenance for hspice will expire on 19-dec-2024/2023.03
 lic: 9(in_use)/50(total) FLOATING license(s) on SERVER 27020@synopsys.ece.umn.edu
 lic:
 
- init: begin read circuit files, cpu clock= 1.40E+00
+ init: begin read circuit files, cpu clock= 1.56E+00
        option search = /apps/hspice/2023.03/hspice/U-2023.03-SP2/hspice/parts/ad
        option search = /apps/hspice/2023.03/hspice/U-2023.03-SP2/hspice/parts/behave
        option search = /apps/hspice/2023.03/hspice/U-2023.03-SP2/hspice/parts/bjt
@@ -28,28 +28,29 @@ lic:
        option parhier = local
        option post =     2.00
        option ingold =     1.00
- init: end read circuit files, cpu clock= 1.52E+00 peak memory=     556 mb
- init: begin check errors, cpu clock= 1.52E+00
+ init: end read circuit files, cpu clock= 1.68E+00 peak memory=     551 mb
+ init: begin check errors, cpu clock= 1.68E+00
  lic: Checkin 7 hspice token(s)
- init: end check errors, cpu clock= 2.02E+00 peak memory=     556 mb
- init: begin setup matrix, pivot=     0 cpu clock= 2.02E+00
-       establish matrix -- done, cpu clock= 2.02E+00 peak memory=     556 mb
-       re-order matrix -- done, cpu clock= 2.02E+00 peak memory=     556 mb
- init: end setup matrix, cpu clock= 2.03E+00 peak memory=     556 mb
- dcop: begin dcop, cpu clock= 2.04E+00
- dcop: end dcop, cpu clock= 2.04E+00 peak memory=     556 mb tot_iter=      12
- output: outputs/fivetota/five_transistor_ota.mt0
- sweep: tran tran0    begin, stop_t=  1.00E-06 #sweeps=1001 cpu clock= 2.05E+00
- tran: time= 1.1590E-07 tot_iter=      52 conv_iter=      21 cpu clock= 2.05E+00
- tran: time= 2.3121E-07 tot_iter=      62 conv_iter=      24 cpu clock= 2.05E+00
- tran: time= 3.3120E-07 tot_iter=      93 conv_iter=      36 cpu clock= 2.06E+00
- tran: time= 4.2780E-07 tot_iter=     103 conv_iter=      39 cpu clock= 2.06E+00
- tran: time= 5.1110E-07 tot_iter=     144 conv_iter=      54 cpu clock= 2.06E+00
- tran: time= 6.3227E-07 tot_iter=     154 conv_iter=      57 cpu clock= 2.07E+00
- tran: time= 7.3121E-07 tot_iter=     185 conv_iter=      69 cpu clock= 2.07E+00
- tran: time= 8.2779E-07 tot_iter=     195 conv_iter=      72 cpu clock= 2.07E+00
- tran: time= 9.1110E-07 tot_iter=     236 conv_iter=      87 cpu clock= 2.08E+00
- tran: time= 1.0000E-06 tot_iter=     246 conv_iter=      90 cpu clock= 2.08E+00
- sweep: tran tran0    end, cpu clock= 2.08E+00 peak memory=     556 mb
+ init: end check errors, cpu clock= 2.17E+00 peak memory=     551 mb
+ init: begin setup matrix, pivot=     0 cpu clock= 2.17E+00
+       establish matrix -- done, cpu clock= 2.17E+00 peak memory=     551 mb
+       re-order matrix -- done, cpu clock= 2.18E+00 peak memory=     551 mb
+ init: end setup matrix, cpu clock= 2.19E+00 peak memory=     551 mb
+ dcop: begin dcop, cpu clock= 2.19E+00
+ dcop: end dcop, cpu clock= 2.20E+00 peak memory=     551 mb tot_iter=      17
+ output: outputs/fivetota/five_transistor_ota.ma0
+ sweep: ac ac0    begin, #sweeps=  56 cpu clock= 2.20E+00
+ ac: frequency=1.00e+00
+ ac: frequency=1.00e+01
+ ac: frequency=1.58e+02
+ ac: frequency=1.58e+03
+ ac: frequency=2.51e+04
+ ac: frequency=2.51e+05
+ ac: frequency=3.98e+06
+ ac: frequency=6.31e+07
+ ac: frequency=6.31e+08
+ ac: frequency=1.00e+10
+ ac: frequency=1.00e+11
+ sweep: ac ac0    end, cpu clock= 2.24E+00 peak memory=     551 mb
 >info:         ***** hspice job concluded
  lic: Release hspice token(s)

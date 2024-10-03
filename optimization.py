@@ -30,24 +30,24 @@ c_self = 0
 # -------------------------------------
 
 it = 0
-# t_spec = { 
-#   "gain": 21,
-#   "ugf": 5.3e9,
-#   "cmrr": 47,
-#   "sr": 500,
-#   "p": 100e-6,
-#   "bw": 350e6
-# }
-
 t_spec = { 
   "gain": 21,
-  "ugf": 5e6,
-  "cmrr": 30,
-  "sr": 3,
+  "ugf": 5.3e9,
+  "cmrr": 47,
+  "sr": 500,
   "p": 100e-6,
-  "bw": 0.5e6
+  "bw": 350e6
 }
-CL = 20e-12
+
+# t_spec = { 
+#   "gain": 21,
+#   "ugf": 5e6,
+#   "cmrr": 30,
+#   "sr": 5,
+#   "p": 100e-6,
+#   "bw": 0.5e6
+# }
+CL = 0.1e-12
 
 
 def radial_spyder_(ax, all_data, keys, metrics, al = 1, th = 2.5):
@@ -89,7 +89,7 @@ def power_func(TE, gm, vdd): # objective function
     return (2*gm*vdd/TE[1])
 
 def con_1(TE,gm_1,CL, c_self): # slew rate
-    return (2*gm_1/(TE[1]*(CL + c_self)))*1e-6 - t_spec["sr"]
+    return (2*gm_3/(TE[1]*(CL + c_self)))*1e-6 - t_spec["sr"]
 
 def con_2(TE, l_3, l_5): # gain
     return 20*np.log10(TE[1]/(l_3+l_5)) - t_spec["gain"]
@@ -226,16 +226,14 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # main()
    
-    # inp = {}
-    
-    # inp["fins"] = [51, 212, 155]
-    # inp["fins"] = [20, 80, 40]
 
-    # inp["Is"] =  0.000307
-    # inp["stacks"] = [3, 3, 3]
-    # hspice_verification(inp)
+    inp = {}
+    inp["fins"] = [80, 50, 85]
+    inp["Is"] =  0.000644
+    inp["stacks"] = [1, 1, 1]
+    hspice_verification(inp)
 
 
 

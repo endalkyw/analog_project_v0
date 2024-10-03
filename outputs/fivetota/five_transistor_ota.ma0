@@ -1,4 +1,6 @@
 $DATA1 SOURCE='PrimeSim HSPICE' VERSION='U-2023.03-SP2 linux6' PARAM_COUNT=0
 .TITLE '*********************************************'
- gain             temper           alter#          
-  -32.7920          25.0000        1               
+ gain             bw               ugf              phase_at_0db    
+ phase_margin     temper           alter#          
+   21.0415         4.320e+08        4.978e+09        -86.4881       
+   93.5119          25.0000        1               

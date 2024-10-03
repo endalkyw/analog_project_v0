@@ -4,28 +4,6 @@ from LUT.fetch_ import *
 from tools.log_file import *
 
 
-def radial_spyder_web(ax, all_data, metrics, al = 1, th = 2.5):
-  output_path = os.path.abspath("outputs")
-
-  num_vars = len(metrics)
-
-  for key, data in all_data.items():
-    angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
-    data += data[:1]
-    angles += angles[:1]
-    ax.plot(angles, data,  linewidth=th, alpha = al,  linestyle='solid', label=key)
-
-  ax.set_yticklabels([])
-  ax.set_xticks(angles[:-1])
-  ax.set_xticklabels(metrics)
-  ax.spines['polar'].set_visible(False) 
-  
-  # Add a legend and show the plot
-  plt.legend(loc='upper right')
-  ax.grid(linewidth=0.5, alpha=0.5)
-
-  return ax
-
 # ---------- initialization -----------------------------
 VGS = np.linspace(0, 0.8, 41)
 VDS = np.linspace(0, 0.8, 41)
@@ -61,7 +39,7 @@ class Five_T_OTA():
         cdd_1 = 0
         cdd_2 = 0
         gm_id_0, gm_id_1, gm_id_2 = TE
-        for _ in range(20): # DP and Upper PMOS CM 
+        for _ in range(10): # DP and Upper PMOS CM 
             # NMOS DIFFERENTIAL PAIR --------------------------------------------------------------
             gm_1_ = self.tb.lookup("gm", length[1], self.fin_ref, "n", vds_val=vds_1)
             id_1_ = self.tb.lookup("id", length[1], self.fin_ref, "n", vds_val=vds_1)
@@ -113,13 +91,12 @@ class Five_T_OTA():
         
         cgg_1 = self.tb.lookup("cgg", length[1], self.fin_ref, "n", vds_val=vds_1, vgs_val=vgs_1)*(fins_1/self.fin_ref)
         cgg_2 = self.tb.lookup("cgg", length[2], self.fin_ref, "p", vds_val=vsd_2, vgs_val=vsg_2)*(fins_2/self.fin_ref)
-        
         c_self = (cgg_2 + cgg_1)/2 +  cdd_1 + cdd_2
 
         A   = 20*np.log10(gm_1/(gds_1+gds_2)[0])
         GBW = gm_1/(2*np.pi*(self.load_C+cdd_1+cdd_2))[0]  
-        fins = [fins_0[0], fins_1[0], fins_2[0]]
-
+        fins = [fins_0[0], fins_1[0], fins_2[0]]        
+        
         other_res = {"vx":vx, 
                      "vy":vx+vds_1, 
                      "gm_0": gm_0, 
@@ -132,8 +109,40 @@ class Five_T_OTA():
                      "l_2":gds_2/id_2,
                      "ugf":GBW,
                      "cgg_1":cgg_1,
-                     "cgg_2":cgg_2
+                     "cgg_2":cgg_2,
+                     "Itail": id_0,
+                     "vds_0": vds_0,
+                     "vds_1": vds_1,
+                     "vsd_2": vsd_2,
                      }
 
         return  fins, Is, other_res
 
+
+
+
+
+
+def main():
+    ota = Five_T_OTA()
+    params = {
+    "GBW_min": 45.6e6,    # in Hz
+    "Ao_min": 20,       # in dB
+    "Po_max": 100e-6,   # in W
+    "load_C": 4e-12,    # in F
+    "supp_V": 1.2,      # in V
+    "fin_ref": 10,
+    "SR": 3,
+    }
+
+    ota.set_target_params(**params)
+    fins, Is, other_res = ota.design_ota([18.5, 23.4, 17.3], 0.6, 0.4, [1, 1, 1])
+        
+    print(fins)
+    print(Is)
+    print(other_res["vx"])
+    print(other_res["vy"])
+
+
+if __name__ == "__main__":
+    main()
