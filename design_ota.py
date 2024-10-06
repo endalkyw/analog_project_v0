@@ -32,14 +32,16 @@ def extract_vth(vgs, gm):
     model.fit(vgs[ind[0]:ind[n]].reshape(-1, 1), gm[ind[0]:ind[n]].reshape(-1, 1))
     y_pred = model.predict(vgs[10:30].reshape(-1, 1))
 
+
     m = model.coef_[0]
     b = model.intercept_
     vth = -b/m
 
-    # plt.plot(vgs, gm, '*-')
-    # plt.plot(vgs[10:30], y_pred)
-    # plt.plot(vth, 0, 'o')
-    # plt.savefig(name)
+    plt.plot(vgs, gm, '*-')
+    plt.plot(vgs[1::], dgm)
+    plt.plot(vgs[10:30], y_pred)
+    plt.plot(vth, 0, 'o')
+    plt.savefig(name)
 
     return vth
 

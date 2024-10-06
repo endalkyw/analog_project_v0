@@ -20,18 +20,16 @@ import re
 gm_1 = gm_3 = gm_5 = l_1  = l_3  = l_5  = cdd_3 = cdd_5 = c_self = Itail = vds_0 = vds_1 = vsd_2 = it = 0
 # -------------------------------------
 
-t_spec = { 
-<<<<<<< HEAD
-  "gain": 19,
-=======
+t_spec = {
+
   "gain": 20,
->>>>>>> 11f198623d51b07bdc4299e5a312a9333aa7519b
   "ugf": 10e6,
   "cmrr": 20,
   "sr": 1,
   "p": 100e-6,
   "bw": 1e6,
-  "cl": 4e-12
+  "cl": 4e-12,
+  "vdd": 1.2
 }
 
 def initialize(gbw_tol = 0):
@@ -49,11 +47,9 @@ def initialize(gbw_tol = 0):
     ota.set_target_params(**params)
     return ota
 
-
 # objective function 
 def power_func(TE, gm_3, vdd): # objective function
     return (2*gm_3*vdd/TE[1])
-
 
 # constraints 
 def con_sr(TE,gm_3, c_self): # slew rate
@@ -80,8 +76,10 @@ def con_vdsat1(TE, vds_1):
 
 def con_vdsat2(TE, vsd_2):
     return vsd_2 - 2/TE[2]
-
-
+def ch(a):
+    if a > 0:
+        return True
+    return False
 def gm_id_optimizer(xk, final=False):
     ota = initialize(0)
     global gm_1, gm_3, gm_5, l_1, l_3, l_5, cdd_3, cdd_5, it, spec_i, Itail, cgg_3, cgg_5,vds_0, vds_1, vsd_2 
@@ -136,10 +134,7 @@ def gm_id_optimizer(xk, final=False):
     write_log_file(f, line, 'a')
     
 
-    def ch(a):
-        if a > 0:
-            return True
-        return False
+
     print("f gain   cmrr    sr  pole2   sat0    sat1    sat2")
     print(ch(con_gain(xk, l_3, l_5)), ch(con_cmrr(xk, l_1, l_3, l_5)), ch(con_sr(xk,gm_3, c_self)), ch(con_p2(xk, gm_3, cgg_5)),
           ch(con_vdsat0(xk, vds_0)), ch(con_vdsat1(xk, vds_1)), ch(con_vdsat2(xk, vsd_2)))
@@ -169,6 +164,41 @@ def gm_id_optimizer(xk, final=False):
 
 
 
+def my_brute_force():
+    global gm_1, gm_3, gm_5, l_1, l_3, l_5, cdd_3, cdd_5, c_self, vds_0, vds_1, vsd_2
+    bounds = [(5,  20), (18, 25), (5,  20)]
+    min_power = 100
+    best_solution = [0, 0, 0]
+
+    min_power_true = 100
+    best_solution_true = [0, 0, 0]
+
+    for te1 in np.linspace(bounds[0][0], bounds[0][1], 5):
+        for te2 in np.linspace(bounds[1][0], bounds[1][1], 5):
+            for te3 in np.linspace(bounds[2][0], bounds[2][1], 5):
+                xk = [np.round(te1,3), np.round(te2,3), np.round(te3,3)]
+                try:
+                    gm_id_optimizer(xk)
+                except:
+                    print("--xx--")
+
+                print(xk)
+
+                p = power_func(xk, gm_3, t_spec["vdd"])
+                if p<min_power:
+                    min_power = p
+                    best_solution = xk
+
+                if(ch(con_gain(xk, l_3, l_5)) and ch(con_cmrr(xk, l_1, l_3, l_5)) and ch(con_sr(xk, gm_3, c_self)) and
+                      ch(con_p2(xk, gm_3, cgg_5)) and ch(con_vdsat0(xk, vds_0)) and ch(con_vdsat1(xk, vds_1)) and ch(con_vdsat2(xk, vsd_2))):
+                    min_power_true = p
+                    best_solution_true = xk
+
+    print(f"best_solution_true: {best_solution}")
+    print(f"best_solution: {best_solution}")
+    print(f"min_power_true {min_power_true}")
+    print(f"min_power: {min_power}")
+
 def run_optimization():
     global gm_1, gm_3, gm_5, l_1, l_3, l_5, cdd_3, cdd_5, c_self, vds_0, vds_1, vsd_2
     TE0 = [15, 15, 15]
@@ -176,19 +206,17 @@ def run_optimization():
         {'type': 'ineq', 'fun': con_sr, 'args': (gm_3, c_self)},
         {'type': 'ineq', 'fun': con_gain, 'args': (l_3, l_5)},
         {'type': 'ineq', 'fun': con_cmrr, 'args': (l_1, l_3, l_5)},
-        # {'type': 'ineq', 'fun': con_p2, 'args': (gm_3, cgg_5)},
+        {'type': 'ineq', 'fun': con_p2, 'args': (gm_3, cgg_5)},
         {'type': 'ineq', 'fun': con_vdsat0, 'args': ([vds_0])},
         {'type': 'ineq', 'fun': con_vdsat1, 'args': ([vds_1])},
         {'type': 'ineq', 'fun': con_vdsat2, 'args': ([vsd_2])}
     )
 
-
-
     # specifying the gm/id bounds
     bounds = [(5,  20), (18, 25), (5,  20)]
 
     # trust-constr SLSQP
-    result = minimize(power_func, TE0, args=(gm_3, 1.2), method='trust-constr', constraints=cons, bounds=bounds,
+    result = minimize(power_func, TE0, args=(gm_3, 1.2), method='SLSQP', constraints=cons, bounds=bounds,
                       callback=gm_id_optimizer, options={'disp': True, 'maxiter': 1000, 'gtol': 1e-9})
     return result
 
@@ -215,14 +243,12 @@ def main():
 
 if __name__ == "__main__":
     # main()
-
-    inp = {}
-    inp["fins"] = [6, 16, 2]
-    inp["Is"] =  24e-6
-    inp["stacks"] = [1, 1, 1]
-    hspice_verification(inp)
-   
-
+    my_brute_force()
+# inp = {}
+    # inp["fins"] = [6, 16, 2]
+    # inp["Is"] =  24e-6
+    # inp["stacks"] = [1, 1, 1]
+    # hspice_verification(inp)
 
 
 
