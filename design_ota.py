@@ -37,11 +37,11 @@ def extract_vth(vgs, gm):
     b = model.intercept_
     vth = -b/m
 
-    plt.plot(vgs, gm, '*-')
-    plt.plot(vgs[1::], dgm)
-    plt.plot(vgs[10:30], y_pred)
-    plt.plot(vth, 0, 'o')
-    plt.savefig(name)
+    # plt.plot(vgs, gm, '*-')
+    # plt.plot(vgs[1::], dgm)
+    # plt.plot(vgs[10:30], y_pred)
+    # plt.plot(vth, 0, 'o')
+    # plt.savefig(name)
 
     return vth
 
@@ -130,7 +130,12 @@ class Five_T_OTA():
         GBW = gm_1/(2*np.pi*(self.load_C+cdd_1+cdd_2))[0]  
         fins = [fins_0[0], fins_1[0], fins_2[0]]
 
-        extract_vth(VGS, self.tb.lookup("gm", length[1], self.fin_ref, "n", vds_val=vds_1))
+
+        try:
+            vth = extract_vth(VGS, self.tb.lookup("gm", length[1], self.fin_ref, "n", vds_val=vds_1))
+        except:
+            vth = 0.302
+
 
         other_res = {"vx":vx, 
                      "vy":vx+vds_1, 
@@ -149,6 +154,7 @@ class Five_T_OTA():
                      "vds_0": vds_0,
                      "vds_1": vds_1,
                      "vsd_2": vsd_2,
+                     "vth": vth,
                      }
 
         return  fins, Is, other_res
