@@ -10,7 +10,7 @@ from tools.log_file import *
 from spice.parse_funcs import extract_between_x_and_y
 from datetime import datetime
 from five_transistor_spice import get_ota_specs
-from scipy.optimize import minimize
+from scipy.optimize import minimize, differential_evolution
 from design_ota import *
 from tools.timing import *
 from tools.log_file import *
@@ -26,12 +26,14 @@ vds_0 = vds_1 = vsd_2 = it = 0
 t_spec = {
 
     "gain": 21,
-    "ugf": 1e9,
+    "ugf": 5e9,
     "cmrr": 50,
-    "sr": 50,
+    "swing": 0.2,
+    "sr": 3,
     "p": 100e-6,
-    "bw": 1e6,
-    "cl": 4e-12,
+    "bw": 10e6,
+    "cl": 0.1e-12,
+    "vcm": 0.4,
     "vdd": 1.2
 }
 
@@ -57,14 +59,18 @@ def ch(a):
 
 def gm_id_optimizer(TE_k):
     ota = initialize(0)
-    p = [1e6, 10, 10, 1000, 10, 1e4, 1e4, 1e4]
-    global gm_1, gm_3, gm_5, l_1, l_3, l_5, cdd_3, cdd_5, it, spec_i, Itail, cgg_3, cgg_5, vds_0, vds_1, vsd_2
+    p = [1e6, 10, 10, 1000, 10, 1e3, 1e4, 1e4, 1e4]
+    global gm_1, gm_3, gm_5, l_1, l_3, l_5, cdd_3, cdd_5, it, spec_i, Itail, cgg_3, cgg_5, vds_0, vds_1, vsd_2, vth_3
     global it
     vcm = 0.6
-    length = 1  # 14e-9
+    length = 1
     vds_1 = 1.2 / 3
+    try:
+        fins, Is, other_res = ota.design_ota(TE_k, 0.6, vds_1, [1, 1, 1])
+    except:
+        print("failed")
+        return 1e6
 
-    fins, Is, other_res = ota.design_ota(TE_k, 0.6, vds_1, [1, 1, 1])
     gm_1 = other_res["gm_0"]
     gm_3 = other_res["gm_1"]
     gm_5 = other_res["gm_2"]
@@ -81,25 +87,31 @@ def gm_id_optimizer(TE_k):
     vds_0 = other_res["vds_0"]
     vds_1 = other_res["vds_1"]
     vsd_2 = other_res["vsd_2"]
+    vth_3 = other_res["vth"]
 
     c_self = (cgg_3) / 2 + cdd_3 + cdd_5
 
-
     val_ = [
-            p[0]*2 * gm_3 * t_spec["vdd"] / TE_k[1],
+            p[0]*2 * gm_3 * t_spec["vdd"] / TE_k[1]  + 10*(TE_k[2]/TE_k[1]),
             p[1]*max(0, t_spec["sr"] - (2 * gm_3 / (TE_k[1] * (t_spec["cl"] + c_self))) * 1e-6),
             p[2]*max(0, t_spec["gain"] - 20 * np.log10(TE_k[1] / (l_3 + l_5))),
             p[3]*max(0, t_spec["cmrr"] - 20 * np.log10((TE_k[1] * TE_k[2]) / (l_1 * (l_3 + l_5)))),
             p[4]*max(0, ((2.7 * t_spec["ugf"]) - ((TE_k[2] / TE_k[1]) * ((gm_3) / (2 * np.pi * cgg_5)))))/(2.7 * t_spec["ugf"]),
-            p[5]*max(0, 2 / TE_k[0] - vds_0),
-            p[6]*max(0, 2 / TE_k[1] - vds_1),
-            p[7]*max(0, 2 / TE_k[2] - vsd_2)
+            p[5]*max(0, t_spec["swing"] - (t_spec["vdd"] - t_spec["vcm"] - 2 / TE_k[2] - vth_3)),
+            p[6]*max(0, 2 / TE_k[0] - vds_0),
+            p[7]*max(0, 2 / TE_k[1] - vds_1),
+            p[8]*max(0, 2 / TE_k[2] - vsd_2)
           ]
 
     it += 1
-    val = sum(val_)
+    print(f"------------swing----{t_spec['vdd'] - t_spec['vcm'] - 2/TE_k[2] - vth_3}-------------------")
     print("it", it)
+    val = sum(val_)
     print(TE_k)
+    print(fins)
+    print(Is)
+    print("-----------------------------------")
+
     print(val_)
 
     # print(((TE_k[2] / TE_k[1]) * ((gm_3) / (2 * np.pi * cgg_5))))
@@ -108,17 +120,45 @@ def gm_id_optimizer(TE_k):
     return val
 
 
+
+
+
+def get_graph():
+    it = 0
+    val = []
+    bounds = [(5, 25), (5, 25), (5, 25)]
+    for te1 in np.linspace(bounds[0][0], bounds[0][1], 20):
+        for te2 in np.linspace(bounds[1][0], bounds[1][1], 20):
+            for te3 in np.linspace(bounds[2][0], bounds[2][1], 20):
+                xk = [np.round(te1, 3), np.round(te2, 3), np.round(te3, 3)]
+                try:
+                    v = gm_id_optimizer(xk)
+                    if type(v) == np.ndarray:
+                        print("yes")
+                        val.append([it, xk[0], xk[1], xk[2], v[0]])
+                        it += 1
+                except:
+                    print("--xx--")
+
+    write_log_file("graph_2.csv", "index,TE_0,TE_1,TE_3,Val", 'w')
+    for v in val:
+        write_log_file("graph_2.csv", ",".join(map(str, v)), 'a')
+
+
+
 def run_optimization():
     # a = gm_id_optimizer(T)
     # specifying the gm/id bounds
-    bounds = [(5, 20), (18, 25), (5, 20)]
+    bounds = [(5, 25), (5, 25), (5, 25)]
 
-    TE_0 = [15, 15, 15]  # Initial guess
+    TE_0 = [18, 15, 18]  # Initial guess
 
     # L - BFGS - B
     result = minimize(gm_id_optimizer, TE_0, method="SLSQP", bounds=bounds)
-    print(result)
+    # result = minimize(gm_id_optimizer, TE_0, method="L-BFGS-B", bounds=bounds)
+    # result = differential_evolution(gm_id_optimizer, bounds, maxiter=5, popsize=5, tol=1e-6)
 
+    print(result)
 
 
 # def hspice_verification(inp):
@@ -128,10 +168,10 @@ def run_optimization():
 
 @timing_decorator
 def main():
-    # a = gm_id_optimizer([9, 20, 9])
+    # a = gm_id_optimizer([16.111,7.222,25.0])
     # print(a)
     run_optimization()
-
+    # get_graph()
 
 if __name__ == "__main__":
     main()
